@@ -22,8 +22,15 @@ public class RunArm extends Command {
 
     @Override
     public void execute() {
-        // Send speeds 
+        // Send speeds
         RobotContainer.arm.setTiltSpeed(tiltSpeed);
         RobotContainer.arm.setExtendSpeed(extendSpeed);
+    }
+
+    // Called once the command ends or is interrupted.
+    @Override
+    public void end(boolean interrupted) {
+        RobotContainer.arm.setTiltSpeed(0);
+        RobotContainer.arm.setExtendSpeed(0);
     }
 }

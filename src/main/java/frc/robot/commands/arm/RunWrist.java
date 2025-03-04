@@ -16,14 +16,16 @@ public class RunWrist extends Command {
     }
 
     @Override
-    public void initialize() {
-
-    }
-
-    @Override
     public void execute() {
         // Send speeds 
         RobotContainer.wrist.setTiltSpeed(tiltSpeed);
         RobotContainer.wrist.setTwistSpeed(twistSpeed);
+    }
+
+    // Called once the command ends or is interrupted.
+    @Override
+    public void end(boolean interrupted) {
+        RobotContainer.wrist.setTiltSpeed(0);
+        RobotContainer.wrist.setTwistSpeed(0);
     }
 }
