@@ -69,11 +69,15 @@ public class SwerveSubsystem extends SubsystemBase
   /**
    * AprilTag field layout.
    */
-  private final AprilTagFieldLayout aprilTagFieldLayout = AprilTagFieldLayout.loadField(AprilTagFields.k2024Crescendo);
+  private final AprilTagFieldLayout aprilTagFieldLayout = AprilTagFieldLayout.loadField(AprilTagFields.k2025ReefscapeAndyMark);
   /**
    * Enable vision odometry updates while driving.
    */
-  private final boolean             visionDriveTest     = false;
+  private final boolean             visionDriveTest     = true;
+  /**
+   * Array of AprilTag values on the reef. Starts with Red alliance, moving counterclockwise from the farthest from center.
+   */
+  private final int[]               reefArray = {7, 8, 9, 10, 11, 6, 18, 17, 22, 21, 20, 19};
   /**
    * PhotonVision class to keep an accurate odometry.
    */
@@ -237,8 +241,7 @@ public class SwerveSubsystem extends SubsystemBase
           // Reference to this subsystem to set requirements
                            );
 
-    } catch (Exception e)
-    {
+    } catch (Exception e) {
       // Handle exception as needed
       e.printStackTrace();
     }
@@ -253,8 +256,7 @@ public class SwerveSubsystem extends SubsystemBase
    *
    * @return Distance to speaker in meters.
    */
-  public double getDistanceToSpeaker()
-  {
+  public double getDistanceToSpeaker() {
     int allianceAprilTag = DriverStation.getAlliance().get() == Alliance.Blue ? 7 : 4;
     // Taken from PhotonUtils.getDistanceToPose
     Pose3d speakerAprilTagPose = aprilTagFieldLayout.getTagPose(allianceAprilTag).get();
@@ -266,8 +268,7 @@ public class SwerveSubsystem extends SubsystemBase
    *
    * @return {@link Rotation2d} of which you need to achieve.
    */
-  public Rotation2d getSpeakerYaw()
-  {
+  public Rotation2d getSpeakerYaw() {
     int allianceAprilTag = DriverStation.getAlliance().get() == Alliance.Blue ? 7 : 4;
     // Taken from PhotonUtils.getYawToPose()
     Pose3d        speakerAprilTagPose = aprilTagFieldLayout.getTagPose(allianceAprilTag).get();
@@ -599,6 +600,16 @@ public class SwerveSubsystem extends SubsystemBase
   }
 
   /**
+   * Resets odometry to the origin. Gyro angle and module positions do not need to be reset when calling this
+   * method.  However, if either gyro angle or module position is reset, this must be called in order for odometry to
+   * keep working.
+   */
+  public void resetOdometry()
+  {
+    swerveDrive.resetOdometry(new Pose2d(0, 0, Rotation2d.fromDegrees(isRedAlliance() ? 180 : 0)));
+  }
+
+  /**
    * Gets the current pose (position and rotation) of the robot, as reported by odometry.
    *
    * @return The robot's pose
@@ -650,7 +661,7 @@ public class SwerveSubsystem extends SubsystemBase
   /**
    * This will zero (calibrate) the robot to assume the current position is facing forward
    * <p>
-   * If red alliance rotate the robot 180 after the drviebase zero command
+   * If red alliance rotate the robot 180 after the drivebase zero command
    */
   public void zeroGyroWithAlliance()
   {
