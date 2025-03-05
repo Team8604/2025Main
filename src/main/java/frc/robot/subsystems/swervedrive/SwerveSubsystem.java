@@ -7,7 +7,6 @@ package frc.robot.subsystems.swervedrive;
 import static edu.wpi.first.units.Units.Meter;
 
 import com.ctre.phoenix6.configs.MotionMagicConfigs;
-import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.commands.PathPlannerAuto;
@@ -24,15 +23,14 @@ import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
@@ -75,9 +73,9 @@ public class SwerveSubsystem extends SubsystemBase
    */
   private final boolean             visionDriveTest     = true;
   /**
-   * Array of AprilTag values on the reef. Starts with Red alliance, moving counterclockwise from the farthest from center.
+   * Array of AprilTag values on the reef. Starts with Blue alliance, moving counterclockwise from the left. Used for {@link SwerveSubsystem#driveToReef}
    */
-  private final int[]               reefArray = {7, 8, 9, 10, 11, 6, 18, 17, 22, 21, 20, 19};
+  private final int[]               reefArray = {18, 17, 22, 21, 20, 19, 10, 11, 6, 7, 8, 9};
   /**
    * PhotonVision class to keep an accurate odometry.
    */
@@ -176,11 +174,6 @@ public class SwerveSubsystem extends SubsystemBase
     }
   }
 
-  @Override
-  public void simulationPeriodic()
-  {
-  }
-
   /**
    * Setup AutoBuilder for PathPlanner.
    */
@@ -249,50 +242,6 @@ public class SwerveSubsystem extends SubsystemBase
     //Preload PathPlanner Path finding
     // IF USING CUSTOM PATHFINDER ADD BEFORE THIS LINE
     PathfindingCommand.warmupCommand().schedule();
-  }
-
-  /**
-   * Get the distance to the speaker.
-   *
-   * @return Distance to speaker in meters.
-   */
-  public double getDistanceToSpeaker() {
-    int allianceAprilTag = DriverStation.getAlliance().get() == Alliance.Blue ? 7 : 4;
-    // Taken from PhotonUtils.getDistanceToPose
-    Pose3d speakerAprilTagPose = aprilTagFieldLayout.getTagPose(allianceAprilTag).get();
-    return getPose().getTranslation().getDistance(speakerAprilTagPose.toPose2d().getTranslation());
-  }
-
-  /**
-   * Get the yaw to aim at the speaker.
-   *
-   * @return {@link Rotation2d} of which you need to achieve.
-   */
-  public Rotation2d getSpeakerYaw() {
-    int allianceAprilTag = DriverStation.getAlliance().get() == Alliance.Blue ? 7 : 4;
-    // Taken from PhotonUtils.getYawToPose()
-    Pose3d        speakerAprilTagPose = aprilTagFieldLayout.getTagPose(allianceAprilTag).get();
-    Translation2d relativeTrl         = speakerAprilTagPose.toPose2d().relativeTo(getPose()).getTranslation();
-    return new Rotation2d(relativeTrl.getX(), relativeTrl.getY()).plus(swerveDrive.getOdometryHeading());
-  }
-
-  /**
-   * Aim the robot at the speaker.
-   *
-   * @param tolerance Tolerance in degrees.
-   * @return Command to turn the robot to the speaker.
-   */
-  public Command aimAtSpeaker(double tolerance)
-  {
-    SwerveController controller = swerveDrive.getSwerveController();
-    return run(
-        () -> {
-          ChassisSpeeds speeds = ChassisSpeeds.fromFieldRelativeSpeeds(0, 0,
-                                                   controller.headingCalculate(getHeading().getRadians(),
-                                                                               getSpeakerYaw().getRadians()),
-                                                                       getHeading());
-          drive(speeds);
-        }).until(() -> Math.abs(getSpeakerYaw().minus(getHeading()).getDegrees()) < tolerance);
   }
 
   /**
@@ -408,6 +357,23 @@ public class SwerveSubsystem extends SubsystemBase
 
   }
 
+  /**
+   * A command used to drive to the reef, changing spots based on the bumper pressed
+   * 
+   * @param left {@link Boolean} if the left bumper is pressed
+   * @return {@link Command} to drive the robot to the closest reef based on button pressed
+   */
+  public Command driveToReef(boolean left) {
+    // Formula essentially maps (-180, 180) to (0, 5)
+    int tagIndex = (int)Math.round(((getHeading().getDegrees() + 180) / 60) + 3) % 6;
+    tagIndex += isRedAlliance() ? 6 : 0;
+
+    Pose2d desiredTagPose = aprilTagFieldLayout.getTagPose(reefArray[tagIndex]).get().toPose2d();
+    desiredTagPose.plus(new Transform2d(Units.inchesToMeters(23), 
+                                        Units.inchesToMeters(5.5 + 6.47 * (left ? 1 : -1)),  
+                                        Rotation2d.fromDegrees(180)));
+    return driveToPose(desiredTagPose);
+  }
 
   /**
    * Command to characterize the robot drive motors using SysId
@@ -575,7 +541,6 @@ public class SwerveSubsystem extends SubsystemBase
   {
     swerveDrive.drive(velocity);
   }
-
 
   /**
    * Get the swerve drive kinematics object.
