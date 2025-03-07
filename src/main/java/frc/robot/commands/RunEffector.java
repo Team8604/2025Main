@@ -5,7 +5,6 @@
 package frc.robot.commands;
 
 import frc.robot.RobotContainer;
-import frc.robot.Constants.EffectorConstants;
 import edu.wpi.first.wpilibj2.command.Command;
 
 /** Command to run Effector to intake and dropOff */

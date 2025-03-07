@@ -5,10 +5,8 @@
 package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
-import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.arm.*;
 import frc.robot.subsystems.Effector;
-import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.arm.*;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -25,7 +23,6 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   public static Effector effector = new Effector();
   public static Wrist wrist = new Wrist();
   public static Arm arm = new Arm();
@@ -81,8 +78,7 @@ public class RobotContainer {
    */
   private void configureBindings() {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
-    new Trigger(m_exampleSubsystem::exampleCondition)
-        .onTrue(new ExampleCommand(m_exampleSubsystem));
+    //new Trigger(m_exampleSubsystem::exampleCondition).onTrue(new ExampleCommand(m_exampleSubsystem));
 
     //buttonBoardOne.whileTrue(new RunEffector(EffectorConstants.kIntakeSpeed));
     //a.whileTrue(new RunArm(0.1, 0));
