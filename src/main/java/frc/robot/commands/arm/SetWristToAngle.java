@@ -18,7 +18,7 @@ public class SetWristToAngle extends Command {
         this.tiltTarget = tiltTarget;
 
         twistPid = new PIDController(WristConstants.kTwistP, WristConstants.kTwistI, WristConstants.kTwistD);
-        tiltPid = new PIDController(WristConstants.kTiltP, WristConstants.kTiltI, WristConstants.kTiltD);
+        //tiltPid = new PIDController(WristConstants.kTiltP, WristConstants.kTiltI, WristConstants.kTiltD);
     }
 
     @Override

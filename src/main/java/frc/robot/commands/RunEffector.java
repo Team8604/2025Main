@@ -8,24 +8,24 @@ import frc.robot.RobotContainer;
 import frc.robot.Constants.EffectorConstants;
 import edu.wpi.first.wpilibj2.command.Command;
 
-/** An example command that uses an example subsystem. */
+/** Command to run Effector to intake and dropOff */
 public class RunEffector extends Command {
   @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
 
   double effectorSpeed = 0, temp;
   boolean isCoral = false;
 
-  public RunEffector() {
+  /** Sets Effector speed to intake or outtake. */
+  public RunEffector(double speed) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(RobotContainer.effector);
-    temp = EffectorConstants.kIntakeSpeed;
+    temp = speed;
   }
 
-  // Called when the command is initially scheduled.
+  /** Called when the command is initially scheduled. */
   @Override
   public void execute() {
     RobotContainer.effector.setSpeed(effectorSpeed);
-
     if (temp < 0) {
       // would mean intake backing out
       isCoral = false;
@@ -40,7 +40,7 @@ public class RunEffector extends Command {
     RobotContainer.effector.setSpeed(effectorSpeed);
   }
 
-  // Called once the command ends or is interrupted.
+  /** Called once the command ends or is interrupted.*/
   @Override
   public void end(boolean interrupted) {
     RobotContainer.effector.setSpeed(0);

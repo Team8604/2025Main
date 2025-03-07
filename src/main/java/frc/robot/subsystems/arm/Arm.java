@@ -18,15 +18,12 @@ public class Arm extends SubsystemBase {
     private final SparkFlex tiltMasterMotor = new SparkFlex(ArmConstants.kTiltMaster, MotorType.kBrushless);
     private final SparkFlex tiltSlaveMotor = new SparkFlex(ArmConstants.kTiltSlave, MotorType.kBrushless);
     private final SparkFlex extendMotor = new SparkFlex(ArmConstants.kExtend, MotorType.kBrushless);
-    //private final RelativeEncoder  tiltEncoder = tiltMasterMotor.getExternalEncoder();
-    private final DutyCycleEncoder tiltEncoder = new DutyCycleEncoder(ArmConstants.kTiltEncoderPort);
-    
+
+    private final DutyCycleEncoder tiltEncoder = new DutyCycleEncoder(ArmConstants.kTiltEncoderPort);    
     private final AnalogPotentiometer potentiometer = new AnalogPotentiometer(ArmConstants.kPotentiometerPort);
 
     private SparkFlexConfig motorConfig = new SparkFlexConfig();
     private SparkFlexConfig slaveMotorConfig = new SparkFlexConfig();
-
-    private double extendStartingPos;
 
     public Arm() {
         // Set yp slave config
@@ -36,62 +33,65 @@ public class Arm extends SubsystemBase {
         tiltMasterMotor.configure(motorConfig, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
         tiltSlaveMotor.configure(slaveMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
         extendMotor.configure(motorConfig, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
-
-        // Zero out encoder to start
-        //tiltEncoder.set(0);
-
-        extendStartingPos = getExtendValue();
     }
 
+    /** Returns arm tilt encoder value in degrees*/
     public double getTiltEncoder() {
         return tiltEncoder.get() * 360;
     }
 
+    /** Returns arm extension potentiometer */
     public double getExtendValue() {
         return potentiometer.get();
     }
 
+    /** Sets arm tilt speed if not going out of limit */
     public void setTiltSpeed(double speed) {
-        boolean positiveTilt = speed > 0 && getTiltEncoder() > ArmConstants.kMaxPositiveTilt;
-        boolean negativeTilt = speed < 0 && getTiltEncoder() < ArmConstants.kMaxNegativeTilt;
+        boolean positiveTilt = speed > 0 && getTiltEncoder() > ArmConstants.kMaxTilt;
+        boolean negativeTilt = speed < 0 && getTiltEncoder() < ArmConstants.kMinTilt;
 
-        if (positiveTilt && negativeTilt) {
-        tiltMasterMotor.set(ArmConstants.kMaxTiltSpeed * MathUtil.clamp(speed, -1, 1));
+        if (positiveTilt || negativeTilt) {
+            tiltMasterMotor.set(ArmConstants.kMaxTiltSpeed * MathUtil.clamp(speed, -.1, .1));
         } else {
             tiltMasterMotor.set(0);
 
         }
     }
-
+     
+    /** Sets arm tilt speed if not going out of limit */
     public void setExtendSpeed(double speed) {
-        if ((speed > 0 && getExtendValue() < ArmConstants.kMaxExtend) || (speed < 0 && getExtendValue() > extendStartingPos)) {
-            extendMotor.set(ArmConstants.kMaxExtendSpeed * MathUtil.clamp(speed, -1, 1));
+        if ((speed > 0 && getExtendValue() < ArmConstants.kMaxExtend) || (speed < 0 && getExtendValue() > ArmConstants.kMinExtend)) {
+            extendMotor.set(ArmConstants.kMaxExtendSpeed * MathUtil.clamp(speed, -.1, .1));
         } else {
             extendMotor.set(0);
         }
     }
 
-    // Returns the maximum distance before extension limit from the arm pivot to the edge of the effector
+    /** Returns the maximum distance before extension limit from the arm pivot 
+     * to the edge of the effector
+     */
     public double getMaxDistance(){
-        double plusBuffer = ArmConstants.kTiltUpPos + ArmConstants.kTiltUpBuffer;
-        double minusBuffer = ArmConstants.kTiltUpPos - ArmConstants.kTiltUpBuffer;
         double tiltEncoderVal = getTiltEncoder();
-
-        if (tiltEncoderVal > plusBuffer){
+        
+        if (tiltEncoderVal > ArmConstants.kTiltUpwards){
             // arm would be angled fowards
             return ArmConstants.kMaxDistFromPivotToFront / Math.cos(tiltEncoderVal);
 
-        } else if (tiltEncoderVal < minusBuffer) {
+        } else if (tiltEncoderVal < ArmConstants.kTiltUpwards) {
             // arm would be angled backwards 
             return ArmConstants.kMaxDistFromPivotToRear / Math.cos(tiltEncoderVal);
-
         }
         return 0; // Figure out this return - something is screwed up if it gets here
     }
 
     @Override
     public void periodic(){
-        SmartDashboard.putNumber("tilt Encoder", getTiltEncoder());
+        SmartDashboard.putNumber("Tilt Encoder", getTiltEncoder());
+        SmartDashboard.putNumber("Extend Potentiometer", getExtendValue());
+        
+        SmartDashboard.putNumber("Extend speed", extendMotor.get());
+        SmartDashboard.putNumber("Tilt speed", tiltMasterMotor.get());
+
         SmartDashboard.putNumber("Max Distance", getMaxDistance());
     }
 }

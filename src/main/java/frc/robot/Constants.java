@@ -32,8 +32,9 @@ public final class Constants {
     public static final int kEffector = 50;
 
     // TEMPORARY speeds
-    public static final double kMaxSpeed = 0.2;
+    public static final double kMaxSpeed = 0.5;
     public static final double kIntakeSpeed = 0.3;
+    public static final double kOutSpeed = -0.4;
   }
 
   public static class WristConstants {
@@ -57,13 +58,13 @@ public final class Constants {
     public static final double kRotateStartingPos = 0;
 
     // Coral scoring positions 
-    public static final double kTiltTrofPos = 0;
+    public static final double kWristTiltTrofPos = 0;
     public static final double kRotateTrofPos = 0;
-    public static final double kTiltL1Pos = 0;
+    public static final double kWristTiltL1Pos = 0;
     public static final double kRotateL1Pos = 0;
-    public static final double kTiltL2Pos = 0;
+    public static final double kWristTiltL2Pos = 0;
     public static final double kRotateL2Pos = 0;
-    public static final double kTiltL3Pos = 0;
+    public static final double kWristTiltL3Pos = 0;
     public static final double kRotateL3Pos = 0;
 
     // Pickup positions
@@ -76,9 +77,9 @@ public final class Constants {
     public static final double kTwistI = 0;
     public static final double kTwistD = 0;
 
-    public static final double kTiltP = 0.1;
-    public static final double kTiltI = 0;
-    public static final double kTiltD = 0;
+    public static final double kWristTiltP = 0.1;
+    public static final double kWristTiltI = 0;
+    public static final double kWristTiltD = 0;
   }
 
   public static class ArmConstants {
@@ -89,7 +90,7 @@ public final class Constants {
 
     // Ports on RobioRio
     public static final int kTiltEncoderPort = 0; 
-    public static final int kPotentiometerPort = 1;
+    public static final int kPotentiometerPort = 0;
 
     // Arm Pid Values
     public static final double kExtendP = 0.1;
@@ -105,32 +106,32 @@ public final class Constants {
     public static final double kMaxExtendSpeed = 0.1;
     
     // Placeholders (again)
-    public static final double kMaxPositiveTilt = 90;
-    public static final double kMaxNegativeTilt = 0;
+    public static final double kMaxExtend = 0.26; // Value on potentionometer
+    public static final double kMinExtend = 0.4;
 
-    public static final double kMaxExtend = 3; // Value on potentionometer
+    public static final double kMaxTilt = 146;
+    public static final double kMinTilt = 41;//40;
     
     // Arm positions
     public static final double kTiltStartingPos = 0;
     public static final double kExtendStartingPos = 0;
 
     // Coral scoring positions 
-    public static final double kTiltTrofPos = 0;
-    public static final double kExtendTrofPos = 0;
-    public static final double kTiltL1Pos = 0;
-    public static final double kExtendL1Pos = 0;
-    public static final double kTiltL2Pos = 0;
-    public static final double kExtendL2Pos = 0;
-    public static final double kTiltL3Pos = 0;
-    public static final double kExtendL3Pos = 0;
+    public static final double kTiltTrofPos = 45;
+    public static final double kExtendTrofPos = 2;
+    public static final double kTiltL2Pos = 100;
+    public static final double kExtendL2Pos = 3;
+    public static final double kTiltL3Pos = 100;
+    public static final double kExtendL3Pos = 6;
+    public static final double kTiltL4Pos = 100;
+    public static final double kExtendL4Pos = 8;
 
     // Pickup positions
-    public static final double kTiltPickupPos = 0;
-    public static final double kExtendPickupPos = 0;
+    public static final double kTiltPickupPos = 45;
+    public static final double kExtendPickupPos = 2;
 
-    // Tilt straight up posiion used for calculating max extensions
-    public static final double kTiltUpPos = 0;
-    public static final double kTiltUpBuffer = 5; // Degres on either side of kTiltUpPos where arm has no extension limit
+    // Constants for calculating max extensions
+    public static final double kTiltUpwards = 90; // arm angled straight upwards
 
     public static final double kMaxDistFromPivotToFront = 20.75; // distance from pivot to extension limit in inches
     public static final double kMaxDistFromPivotToRear = 27.25 + 18; // distance from pivot to extension limit of the other side

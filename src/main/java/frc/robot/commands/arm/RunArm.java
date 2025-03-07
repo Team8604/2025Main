@@ -9,7 +9,7 @@ public class RunArm extends Command {
 
     public RunArm(double tiltSpeed, double extendSpeed) {
         // Use addRequirements() here to declare subsystem dependencies.
-        addRequirements(RobotContainer.effector);
+        addRequirements(RobotContainer.arm);
 
         this.tiltSpeed = tiltSpeed;
         this.extendSpeed = extendSpeed;

@@ -6,11 +6,11 @@ package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.ExampleCommand;
-import frc.robot.commands.RunEffector;
 import frc.robot.commands.arm.*;
 import frc.robot.subsystems.Effector;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.arm.*;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
@@ -34,6 +34,8 @@ public class RobotContainer {
   public static CommandXboxController m_operatorButtonBoard = new CommandXboxController(
       OperatorConstants.kOperatorButtonBoardPort);
 
+  public static CommandXboxController m_XboxController = new CommandXboxController(1);
+
   // Operator buttons
   public static Trigger buttonBoardOne = m_operatorButtonBoard.button(1);
   public static Trigger buttonBoardTwo = m_operatorButtonBoard.button(2);
@@ -48,6 +50,10 @@ public class RobotContainer {
   public static Trigger buttonBoardEleven = m_operatorButtonBoard.button(11);
   public static Trigger buttonBoardTwelve = m_operatorButtonBoard.button(12);
 
+
+  public static Trigger a = m_XboxController.a();
+  public static Trigger x = m_XboxController.x();
+
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
@@ -56,7 +62,7 @@ public class RobotContainer {
     configureBindings();
 
     // Set default commands
-    //CommandScheduler.getInstance().setDefaultCommand(RobotContainer.subsystem, new command());
+    CommandScheduler.getInstance().setDefaultCommand(RobotContainer.arm, new RunArm(m_XboxController.getRawAxis(1), m_XboxController.getRawAxis(3)));
   }
 
   /**
@@ -78,25 +84,9 @@ public class RobotContainer {
     new Trigger(m_exampleSubsystem::exampleCondition)
         .onTrue(new ExampleCommand(m_exampleSubsystem));
 
-    // Schedule `exampleMethodCommand` when the Xbox controller's B button is
-    // pressed,
-    // cancelling on release.
-    buttonBoardOne.whileTrue(new RunEffector());
-    buttonBoardTwo.whileTrue(new RunWrist(0.1,0));
-    buttonBoardThree.whileTrue(new RunWrist(-0.1,0));
-    buttonBoardFour.whileTrue(new RunArm(0.1,0));
-    buttonBoardFive.whileTrue(new RunArm(-0.1,0));
-
-    /*
-    buttonBoardSix.whileTrue(new SetWristToAngle());
-    buttonBoardSeven.whileTrue(new SetWristToAngle());
-    buttonBoardEight.whileTrue(new SetBaseArmToAngle());
-    buttonBoardNine.whileTrue(new SetBaseArmToAngle());
-    */
-
-    //buttonBoardTen.whileTrue(new command());
-    //buttonBoardEleven.whileTrue(new command());
-    //buttonBoardTwelve.whileTrue(new command());
+    //buttonBoardOne.whileTrue(new RunEffector(EffectorConstants.kIntakeSpeed));
+    //a.whileTrue(new RunArm(0.1, 0));
+    //x.whileTrue(new RunArm(-0.1, 0));
 
   }
 }
