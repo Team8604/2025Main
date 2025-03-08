@@ -47,11 +47,16 @@ public class Arm extends SubsystemBase {
 
     /** Sets arm tilt speed if not going out of limit */
     public void setTiltSpeed(double speed) {
-        boolean positiveTilt = speed > 0 && getTiltEncoder() > ArmConstants.kMaxTilt;
-        boolean negativeTilt = speed < 0 && getTiltEncoder() < ArmConstants.kMinTilt;
+        boolean positiveTilt = speed > 0 && getTiltEncoder() < ArmConstants.kMaxTilt;
+        boolean negativeTilt = speed < 0 && getTiltEncoder() > ArmConstants.kMinTilt;
+
+        System.out.println("pos" + positiveTilt + "neg" + negativeTilt);
+
 
         if (positiveTilt || negativeTilt) {
-            tiltMasterMotor.set(ArmConstants.kMaxTiltSpeed * MathUtil.clamp(speed, -.1, .1));
+            System.out.println("Ran" + speed);
+
+            tiltMasterMotor.set(ArmConstants.kMaxTiltSpeed * speed);
         } else {
             tiltMasterMotor.set(0);
 
@@ -60,8 +65,8 @@ public class Arm extends SubsystemBase {
      
     /** Sets arm tilt speed if not going out of limit */
     public void setExtendSpeed(double speed) {
-        if ((speed > 0 && getExtendValue() < ArmConstants.kMaxExtend) || (speed < 0 && getExtendValue() > ArmConstants.kMinExtend)) {
-            extendMotor.set(ArmConstants.kMaxExtendSpeed * MathUtil.clamp(speed, -.1, .1));
+        if ((speed < 0 && getExtendValue() > ArmConstants.kMaxExtend) || (speed > 0 && getExtendValue() < ArmConstants.kMinExtend)) {
+            extendMotor.set(ArmConstants.kMaxExtendSpeed * speed);
         } else {
             extendMotor.set(0);
         }
@@ -73,15 +78,19 @@ public class Arm extends SubsystemBase {
     public double getMaxDistance(){
         double tiltEncoderVal = getTiltEncoder();
         
-        if (tiltEncoderVal > ArmConstants.kTiltUpwards){
-            // arm would be angled fowards
-            return ArmConstants.kMaxDistFromPivotToFront / Math.cos(tiltEncoderVal);
-
-        } else if (tiltEncoderVal < ArmConstants.kTiltUpwards) {
-            // arm would be angled backwards 
+        if (tiltEncoderVal < ArmConstants.kTiltUpwards) {
+            // arm would be angled toward back of robot 
             return ArmConstants.kMaxDistFromPivotToRear / Math.cos(tiltEncoderVal);
         }
-        return 0; // Figure out this return - something is screwed up if it gets here
+        return 0; // there is no extension limit based on arm's angle
+    }
+
+    /** Returns the distance the arm is from the pivot, to the tip of the wrist joint
+     * Works with getCurrentDistacne in Wrist subsystem
+     */
+    public double getCurrentDistance(){
+        // (len of arm + getExtendValue()*num)
+        return 0;
     }
 
     @Override

@@ -58,4 +58,12 @@ public class Wrist extends SubsystemBase {
             twistMotor.set(0);
         }
     }
+
+    /** Returns the distance the arm's wrist from the pivot, to the tip of the effector 
+     * Works with getCurrentDistacne in Arm subsystem
+    */
+    public double getCurrentDistance() {
+        //
+        return 0;
+    }
 }

@@ -106,32 +106,32 @@ public final class Constants {
     public static final double kMaxExtendSpeed = 0.1;
     
     // Placeholders (again)
-    public static final double kMaxExtend = 0.26; // Value on potentionometer
-    public static final double kMinExtend = 0.4;
+    public static final double kMaxExtend = 0.23; // .26 Value on potentionometer
+    public static final double kMinExtend = 0.725;//.4
 
-    public static final double kMaxTilt = 146;
-    public static final double kMinTilt = 41;//40;
+    public static final double kMaxTilt = 145;//146
+    public static final double kMinTilt = 41;//41;
     
     // Arm positions
     public static final double kTiltStartingPos = 0;
     public static final double kExtendStartingPos = 0;
 
     // Coral scoring positions 
-    public static final double kTiltTrofPos = 45;
-    public static final double kExtendTrofPos = 2;
+    public static final double kTiltTrofPos = 145.8;
+    public static final double kExtendTrofPos = .72;
     public static final double kTiltL2Pos = 100;
     public static final double kExtendL2Pos = 3;
-    public static final double kTiltL3Pos = 100;
-    public static final double kExtendL3Pos = 6;
-    public static final double kTiltL4Pos = 100;
-    public static final double kExtendL4Pos = 8;
+    public static final double kTiltL3Pos = 139;
+    public static final double kExtendL3Pos = 0.53;
+    public static final double kTiltL4Pos = 140;
+    public static final double kExtendL4Pos = 0.22;
 
     // Pickup positions
-    public static final double kTiltPickupPos = 45;
-    public static final double kExtendPickupPos = 2;
+    public static final double kTiltPickupPos = 91.7;
+    public static final double kExtendPickupPos = .72;
 
     // Constants for calculating max extensions
-    public static final double kTiltUpwards = 90; // arm angled straight upwards
+    public static final double kTiltUpwards = 130; // arm angled straight upwards
 
     public static final double kMaxDistFromPivotToFront = 20.75; // distance from pivot to extension limit in inches
     public static final double kMaxDistFromPivotToRear = 27.25 + 18; // distance from pivot to extension limit of the other side

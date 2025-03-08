@@ -59,7 +59,7 @@ public class RobotContainer {
     configureBindings();
 
     // Set default commands
-    CommandScheduler.getInstance().setDefaultCommand(RobotContainer.arm, new RunArm(m_XboxController.getRawAxis(1), m_XboxController.getRawAxis(3)));
+    CommandScheduler.getInstance().setDefaultCommand(RobotContainer.arm, new RunArm());//m_XboxController.getRawAxis(1), m_XboxController.getRawAxis(5)));
   }
 
   /**
