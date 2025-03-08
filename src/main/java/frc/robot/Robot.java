@@ -35,6 +35,8 @@ public class Robot extends TimedRobot {
   private final SparkFlex tiltMasterMotor = new SparkFlex(53, MotorType.kBrushless);
   private final SparkFlex tiltSlaveMotor = new SparkFlex(54, MotorType.kBrushless);
 
+  private final SparkFlex extendMotor = new SparkFlex(55, MotorType.kBrushless);
+
   private SparkFlexConfig motorConfig = new SparkFlexConfig();
   private SparkFlexConfig slaveMotorConfig = new SparkFlexConfig();
 
@@ -74,13 +76,15 @@ public class Robot extends TimedRobot {
     // Configure motors
     tiltMasterMotor.configure(motorConfig, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
     tiltSlaveMotor.configure(slaveMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
+  
+    extendMotor.configure(motorConfig, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
   }
 
   @Override
   public void teleopPeriodic() {
 
     tiltMasterMotor.set(MathUtil.clamp(logitechController.getRawAxis(1),-0.18, 0.18));
-
+    tiltMasterMotor.set(MathUtil.clamp(logitechController.getRawAxis(3),-0.05, 0.05));
 
     //leftMotor.set(Math.pow(logitechController.getRawAxis(1), 3));
     rightMotor.set(MathUtil.clamp(Math.pow(logitechController.getRawAxis(5), 3), -0.1, 0.1));
