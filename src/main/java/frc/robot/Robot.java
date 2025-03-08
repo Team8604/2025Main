@@ -84,13 +84,13 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {
 
     tiltMasterMotor.set(MathUtil.clamp(logitechController.getRawAxis(1),-0.18, 0.18));
-    tiltMasterMotor.set(MathUtil.clamp(logitechController.getRawAxis(3),-0.05, 0.05));
+    extendMotor.set(MathUtil.clamp(logitechController.getRawAxis(5),-0.1, 0.1));
 
     //leftMotor.set(Math.pow(logitechController.getRawAxis(1), 3));
-    rightMotor.set(MathUtil.clamp(Math.pow(logitechController.getRawAxis(5), 3), -0.1, 0.1));
+    //rightMotor.set(MathUtil.clamp(Math.pow(logitechController.getRawAxis(5), 3), -0.1, 0.1));
 
     // stopper for when coral inside of intake below
-    temp = MathUtil.clamp(Math.pow(logitechController.getRawAxis(3) - logitechController.getRawAxis(2), 3), -0.3, 0.3);
+    //temp = MathUtil.clamp(Math.pow(logitechController.getRawAxis(3) - logitechController.getRawAxis(2), 3), -0.3, 0.3);
 
     if (temp < 0) {
       // would mean intake backing out
@@ -113,6 +113,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putBoolean("isCoral", isCoral);
     SmartDashboard.putNumber("potentiometer", potentiometer.get());
 
+    SmartDashboard.putNumber("encoder", tiltEncoder.get()*360);
     SmartDashboard.putNumber("Master Motor Speed", tiltMasterMotor.get());
     SmartDashboard.putNumber("Controller number", logitechController.getRawAxis(1) * 0.18);
   }
