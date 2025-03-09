@@ -28,9 +28,9 @@ import edu.wpi.first.math.MathUtil;
  */
 public class Robot extends TimedRobot {
   Joystick logitechController = new Joystick(1);
-  SparkMax leftMotor = new SparkMax(10, MotorType.kBrushless);
-  SparkMax rightMotor = new SparkMax(20, MotorType.kBrushless);
-  SparkMax intakeMotor = new SparkMax(30, MotorType.kBrushless);
+  SparkMax leftMotor = new SparkMax(52, MotorType.kBrushless);
+  SparkMax rightMotor = new SparkMax(51, MotorType.kBrushless);
+  SparkMax intakeMotor = new SparkMax(50, MotorType.kBrushless);
 
   private final SparkFlex tiltMasterMotor = new SparkFlex(53, MotorType.kBrushless);
   private final SparkFlex tiltSlaveMotor = new SparkFlex(54, MotorType.kBrushless);
@@ -83,14 +83,14 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
 
-    tiltMasterMotor.set(MathUtil.clamp(logitechController.getRawAxis(1),-0.18, 0.18));
-    extendMotor.set(MathUtil.clamp(logitechController.getRawAxis(5),-0.1, 0.1));
+    //tiltMasterMotor.set(MathUtil.clamp(logitechController.getRawAxis(1),-0.18, 0.18));
+    //extendMotor.set(MathUtil.clamp(logitechController.getRawAxis(5),-0.1, 0.1));
 
-    //leftMotor.set(Math.pow(logitechController.getRawAxis(1), 3));
-    //rightMotor.set(MathUtil.clamp(Math.pow(logitechController.getRawAxis(5), 3), -0.1, 0.1));
+    leftMotor.set(MathUtil.clamp(Math.pow(logitechController.getRawAxis(1), 3), -0.1, 0.1));
+    rightMotor.set(MathUtil.clamp(Math.pow(logitechController.getRawAxis(5), 3), -0.1, 0.1));
 
     // stopper for when coral inside of intake below
-    //temp = MathUtil.clamp(Math.pow(logitechController.getRawAxis(3) - logitechController.getRawAxis(2), 3), -0.3, 0.3);
+    temp = MathUtil.clamp(Math.pow(logitechController.getRawAxis(3) - logitechController.getRawAxis(2), 3), -0.3, 0.3);
 
     if (temp < 0) {
       // would mean intake backing out
