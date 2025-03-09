@@ -7,16 +7,16 @@ public class RunWrist extends Command {
     @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
     public double tiltSpeed, twistSpeed;
 
-    public RunWrist(double tiltSpeed, double twistSpeed) {
+    public RunWrist() {
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(RobotContainer.effector);
-
-        this.tiltSpeed = tiltSpeed;
-        this.twistSpeed = twistSpeed;
     }
 
     @Override
     public void execute() {
+        tiltSpeed = 0;//RobotContainer.m_XboxController.getRawAxis(0);
+        twistSpeed = 0;//RobotContainer.m_XboxController.getRawAxis(0);
+
         // Send speeds 
         RobotContainer.wrist.setTiltSpeed(tiltSpeed);
         RobotContainer.wrist.setTwistSpeed(twistSpeed);

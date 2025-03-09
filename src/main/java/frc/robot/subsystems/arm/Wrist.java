@@ -8,6 +8,7 @@ import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkMaxConfig;
 
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.WristConstants;
 
@@ -23,10 +24,6 @@ public class Wrist extends SubsystemBase {
     public Wrist() {
         tiltMotor.configure(motorConfig, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
         twistMotor.configure(motorConfig, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
-    
-        // Zero encoders
-        tiltEncoder.setPosition(0);
-        twistEncoder.setPosition(0);
     }
 
     public double getTwistEncoder() {
@@ -53,7 +50,7 @@ public class Wrist extends SubsystemBase {
         boolean negativeTwist = speed < 0 && getTwistEncoder() < WristConstants.kMaxNegativeTwist;
 
         if (positiveTwist && negativeTwist) { 
-            twistMotor.set(WristConstants.kMaxTwistSpeed * MathUtil.clamp(speed, -1, 1));
+            twistMotor.set(WristConstants.kMaxTwistSpeed * MathUtil.clamp(speed, -.1, .1));
         } else {
             twistMotor.set(0);
         }
@@ -65,5 +62,15 @@ public class Wrist extends SubsystemBase {
     public double getCurrentDistance() {
         //
         return 0;
+    }
+
+    @Override
+    public void periodic(){
+        SmartDashboard.putNumber("Wrist Tilt Encoder", getTiltEncoder());
+        SmartDashboard.putNumber("Wrist Extend Potentiometer", getTwistEncoder());
+        
+        SmartDashboard.putNumber("Wrist Extend speed", twistMotor.get());
+        SmartDashboard.putNumber("Wrist Tilt speed", tiltMotor.get());
+
     }
 }

@@ -7,13 +7,9 @@ public class RunArm extends Command {
     @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
     public double tiltSpeed, extendSpeed;
 
-    public RunArm(){//double tiltSpeed, double extendSpeed) {
+    public RunArm(){
         // Use addRequirements() here to declare subsystem dependencies.
-        addRequirements(RobotContainer.arm);
-
-        //this.tiltSpeed = tiltSpeed;
-        //this.extendSpeed = extendSpeed;
-        
+        addRequirements(RobotContainer.arm);        
     }
 
     @Override

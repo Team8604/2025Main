@@ -6,6 +6,7 @@ package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.arm.*;
+import frc.robot.commands.arm.ArmSetToPoint.SetArmToAngle;
 import frc.robot.subsystems.Effector;
 import frc.robot.subsystems.arm.*;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -82,7 +83,7 @@ public class RobotContainer {
 
     //buttonBoardOne.whileTrue(new RunEffector(EffectorConstants.kIntakeSpeed));
     //a.whileTrue(new RunArm(0.1, 0));
-    //x.whileTrue(new RunArm(-0.1, 0));
+    //x.whileTrue(new SetArmToAngle(6));
 
   }
 }

@@ -48,7 +48,7 @@ public final class Constants {
 
     // Wrist Positions TEMPORARY PLACEHOLDERS figure out from encoders values
     public static final double kMaxPositiveTwist = 90;
-    public static final double kMaxNegativeTwist = -90;
+    public static final double kMaxNegativeTwist = 0;
 
     public static final double kMaxPositiveTilt = 90;
     public static final double kMaxNegativeTilt = -90;
@@ -127,9 +127,11 @@ public final class Constants {
     public static final double kExtendL4Pos = 0.22;
 
     // Pickup positions
-    public static final double kTiltPickupPos = 91.7;
-    public static final double kExtendPickupPos = .72;
-
+    public static final double kTiltSourcePickupPos = 91.7;
+    public static final double kExtendSourcePickupPos = .72;
+    public static final double kTiltGroundPickupPos = 91.7;
+    public static final double kExtendGroundPickupPos = .72;
+    
     // Constants for calculating max extensions
     public static final double kTiltUpwards = 130; // arm angled straight upwards
 
