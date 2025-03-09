@@ -21,6 +21,12 @@ import frc.robot.commands.swervedrive.drivebase.AbsoluteDriveAdv;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import java.io.File;
 import swervelib.SwerveInputStream;
+import frc.robot.Constants.OperatorConstants;
+import frc.robot.commands.arm.*;
+import frc.robot.subsystems.arm.*;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a "declarative" paradigm, very
@@ -32,10 +38,15 @@ public class RobotContainer
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   final         CommandXboxController driverXbox = new CommandXboxController(0);
-  final         CommandJoystick       driverJoystick = new CommandJoystick(1);
+  final         CommandXboxController buttonBoard = new CommandXboxController(1);
+
   // The robot's subsystems and commands are defined here...
   private final SwerveSubsystem       drivebase  = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),
                                                                                 "swerve"));
+
+  public Effector effector = new Effector();
+  public Wrist wrist = new Wrist();
+  public Arm arm = new Arm();
   // Applies deadbands and inverts controls because joysticks
   // are back-right positive while robot
   // controls are front-left positive
@@ -63,7 +74,7 @@ public class RobotContainer
                                                                 () -> driverXbox.getLeftX())
                                                             .withControllerRotationAxis(() -> -driverXbox.getRightX())
                                                             .deadband(OperatorConstants.DEADBAND)
-                                                            .scaleTranslation(0.4)
+                                                            .scaleTranslation(-0.4)
                                                             .scaleRotation(0.35)
                                                             .allianceRelativeControl(true);
 
@@ -132,6 +143,7 @@ public class RobotContainer
     configureBindings();
     DriverStation.silenceJoystickConnectionWarning(true);
     NamedCommands.registerCommand("test", Commands.print("I EXIST"));
+    CommandScheduler.getInstance().setDefaultCommand(arm, new RunArm(arm, driverXbox));
   }
 
   /**
