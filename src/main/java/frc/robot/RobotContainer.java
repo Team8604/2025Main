@@ -8,7 +8,6 @@ import com.pathplanner.lib.auto.NamedCommands;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.RobotBase;
@@ -153,24 +152,21 @@ public class RobotContainer
     //                             driveFieldOrientedDirectAngleSim);
 
     // The below code will control the robot's rotation based on an angular velocity
-    driverXbox.x().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
 
     drivebase.setDefaultCommand(!RobotBase.isSimulation() ?
                                 driveFieldOrientedAnglularVelocity :
                                 driveFieldOrientedAnglularVelocity);
 
-    if (Robot.isSimulation())
-    {
+    if (Robot.isSimulation()) {
       driverXbox.start().onTrue(Commands.runOnce(() -> drivebase.resetOdometry(new Pose2d(3, 3, new Rotation2d()))));
     }
-    if (DriverStation.isTest())
-    {
+    if (DriverStation.isTest()) {
       drivebase.setDefaultCommand(driveFieldOrientedAnglularVelocity); // Overrides drive command above!
 
       driverXbox.a().onTrue(Commands.runOnce(drivebase::zeroGyro));
       driverXbox.x().onTrue(Commands.runOnce(drivebase::addFakeVisionReading));
       driverXbox.b().whileTrue(Commands.none());
-      driverXbox.y().whileTrue(drivebase.aimAtSpeaker(2));
+      driverXbox.y().whileTrue(Commands.none());
       driverXbox.start().whileTrue(Commands.none());
       driverXbox.back().whileTrue(Commands.none());
       driverXbox.leftBumper().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
@@ -178,13 +174,13 @@ public class RobotContainer
     } else
     {
       driverXbox.a().onTrue(Commands.runOnce(drivebase::resetOdometry));
-      driverXbox.x().onTrue(Commands.runOnce(drivebase::addFakeVisionReading));
+      driverXbox.x().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
       driverXbox.b().whileTrue(Commands.none());
-      driverXbox.y().whileTrue(drivebase.aimAtSpeaker(2));
+      driverXbox.y().whileTrue(Commands.none());
       driverXbox.start().whileTrue(Commands.none());
       driverXbox.back().whileTrue(Commands.none());
-      driverXbox.leftBumper().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
-      driverXbox.rightBumper().onTrue(Commands.none());
+      driverXbox.leftBumper().whileTrue(drivebase.driveToReef(true));
+      driverXbox.rightBumper().whileTrue(drivebase.driveToReef(false));
     }
 
   }
