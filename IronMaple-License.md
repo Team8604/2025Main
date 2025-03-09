@@ -8,7 +8,7 @@
 If you encounter any bugs related to drivetrain physics simulation,
 please [submit an issue to maple-sim](https://github.com/Shenzhen-Robotics-Alliance/maple-sim/issues/new/choose).
 
-## MIT License, Copyright (c) 2024 Team5516 "Iron Maple"
+## MIT License, Copyright (c) 2025 Team5516 "Iron Maple"
 
 **Permission is hereby granted, free of charge, to any person obtaining a copyof this software and
 associated documentation files (the "Software"), to deal in the Software without restriction,

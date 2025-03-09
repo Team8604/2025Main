@@ -10,6 +10,16 @@ import frc.robot.commands.arm.ArmSetToPoint.SetArmToAngle;
 import frc.robot.subsystems.Effector;
 import frc.robot.subsystems.arm.*;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import com.pathplanner.lib.auto.NamedCommands;
+import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Filesystem;
+import edu.wpi.first.wpilibj.RobotBase;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
@@ -32,21 +42,17 @@ public class RobotContainer {
   public static CommandXboxController m_operatorButtonBoard = new CommandXboxController(
       OperatorConstants.kOperatorButtonBoardPort);
 
-  public static CommandXboxController m_XboxController = new CommandXboxController(1);
-
-  // Operator buttons
-  public static Trigger buttonBoardOne = m_operatorButtonBoard.button(1);
-  public static Trigger buttonBoardTwo = m_operatorButtonBoard.button(2);
-  public static Trigger buttonBoardThree = m_operatorButtonBoard.button(3);
-  public static Trigger buttonBoardFour = m_operatorButtonBoard.button(4);
-  public static Trigger buttonBoardFive = m_operatorButtonBoard.button(5);
-  public static Trigger buttonBoardSix = m_operatorButtonBoard.button(6);
-  public static Trigger buttonBoardSeven = m_operatorButtonBoard.button(7);
-  public static Trigger buttonBoardEight = m_operatorButtonBoard.button(8);
-  public static Trigger buttonBoardNine = m_operatorButtonBoard.button(9);
-  public static Trigger buttonBoardTen = m_operatorButtonBoard.button(10);
-  public static Trigger buttonBoardEleven = m_operatorButtonBoard.button(11);
-  public static Trigger buttonBoardTwelve = m_operatorButtonBoard.button(12);
+  /**
+   * Converts driver input into a field-relative ChassisSpeeds that is controlled by angular velocity.
+   */
+  SwerveInputStream driveAngularVelocity = SwerveInputStream.of(drivebase.getSwerveDrive(),
+                                                                () -> driverXbox.getLeftY(),
+                                                                () -> driverXbox.getLeftX())
+                                                            .withControllerRotationAxis(() -> -driverXbox.getRightX())
+                                                            .deadband(OperatorConstants.DEADBAND)
+                                                            .scaleTranslation(0.4)
+                                                            .scaleRotation(0.35)
+                                                            .allianceRelativeControl(true);
 
 
   public static Trigger a = m_XboxController.a();
@@ -85,5 +91,62 @@ public class RobotContainer {
     //a.whileTrue(new RunArm(0.1, 0));
     //x.whileTrue(new SetArmToAngle(6));
 
+    // drivebase.setDefaultCommand(!RobotBase.isSimulation() ?
+    //                             driveFieldOrientedDirectAngle :
+    //                             driveFieldOrientedDirectAngleSim);
+
+    // The below code will control the robot's rotation based on an angular velocity
+
+    drivebase.setDefaultCommand(!RobotBase.isSimulation() ?
+                                driveFieldOrientedAnglularVelocity :
+                                driveFieldOrientedAnglularVelocity);
+
+    if (Robot.isSimulation()) {
+      driverXbox.start().onTrue(Commands.runOnce(() -> drivebase.resetOdometry(new Pose2d(3, 3, new Rotation2d()))));
+    }
+    if (DriverStation.isTest()) {
+      drivebase.setDefaultCommand(driveFieldOrientedAnglularVelocity); // Overrides drive command above!
+
+      driverXbox.a().onTrue(Commands.runOnce(drivebase::zeroGyro));
+      driverXbox.x().onTrue(Commands.runOnce(drivebase::addFakeVisionReading));
+      driverXbox.b().whileTrue(Commands.none());
+      driverXbox.y().whileTrue(Commands.none());
+      driverXbox.start().whileTrue(Commands.none());
+      driverXbox.back().whileTrue(Commands.none());
+      driverXbox.leftBumper().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
+      driverXbox.rightBumper().onTrue(Commands.none());
+    } else
+    {
+      driverXbox.a().onTrue(Commands.runOnce(drivebase::resetOdometry));
+      driverXbox.x().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
+      driverXbox.b().whileTrue(Commands.none());
+      driverXbox.y().whileTrue(Commands.none());
+      driverXbox.start().whileTrue(Commands.none());
+      driverXbox.back().whileTrue(Commands.none());
+      driverXbox.leftBumper().whileTrue(drivebase.driveToReef(true));
+      driverXbox.rightBumper().whileTrue(drivebase.driveToReef(false));
+    }
+
+  }
+
+  /**
+   * Use this to pass the autonomous command to the main {@link Robot} class.
+   *
+   * @return the command to run in autonomous
+   */
+  public Command getAutonomousCommand()
+  {
+    // An example command will be run in autonomous
+    return drivebase.getAutonomousCommand("Test Auto");
+  }
+
+  public void setDriveMode()
+  {
+    configureBindings();
+  }
+
+  public void setMotorBrake(boolean brake)
+  {
+    drivebase.setMotorBrake(brake);
   }
 }
