@@ -24,7 +24,6 @@ import swervelib.SwerveInputStream;
 import frc.robot.commands.arm.*;
 import frc.robot.subsystems.ButtonBoard;
 import frc.robot.subsystems.arm.*;
-import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a "declarative" paradigm, very
@@ -143,7 +142,6 @@ public class RobotContainer
     configureBindings();
     DriverStation.silenceJoystickConnectionWarning(true);
     NamedCommands.registerCommand("test", Commands.print("I EXIST"));
-    CommandScheduler.getInstance().setDefaultCommand(arm, new RunArm(arm, driverXbox));
   }
 
   /**
