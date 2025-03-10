@@ -37,7 +37,7 @@ public class Robot extends TimedRobot {
   SparkMax twistMotor = new SparkMax(51, MotorType.kBrushless);
   SparkMax intakeMotor = new SparkMax(50, MotorType.kBrushless);
 
-  private final RelativeEncoder tiltEncoder = tiltMotor.getAlternateEncoder();
+  private final SparkAbsoluteEncoder tiltEncoder = tiltMotor.getAbsoluteEncoder();
   private final RelativeEncoder twistEncoder = twistMotor.getAlternateEncoder();
 
   private SparkMaxConfig motorConfig = new SparkMaxConfig();;
