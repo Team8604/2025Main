@@ -1,6 +1,6 @@
 package frc.robot.subsystems.arm;
 
-import com.revrobotics.RelativeEncoder;
+import com.revrobotics.spark.SparkAbsoluteEncoder;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
@@ -16,8 +16,8 @@ public class Wrist extends SubsystemBase {
     // Set up tilt and twist motors, and encoders
     private final SparkMax tiltMotor = new SparkMax(WristConstants.kTilt, MotorType.kBrushless);
     private final SparkMax twistMotor = new SparkMax(WristConstants.kTwist, MotorType.kBrushless);
-    private final RelativeEncoder tiltEncoder = tiltMotor.getAlternateEncoder();
-    private final RelativeEncoder twistEncoder = twistMotor.getAlternateEncoder();
+    private final SparkAbsoluteEncoder tiltEncoder = tiltMotor.getAbsoluteEncoder();
+    private final SparkAbsoluteEncoder twistEncoder = twistMotor.getAbsoluteEncoder();
 
     private SparkMaxConfig motorConfig = new SparkMaxConfig();;
 
