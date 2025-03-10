@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
-import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
+import edu.wpi.first.wpilibj2.command.button.CommandGenericHID;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
@@ -21,12 +21,10 @@ import frc.robot.commands.swervedrive.drivebase.AbsoluteDriveAdv;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import java.io.File;
 import swervelib.SwerveInputStream;
-import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.arm.*;
+import frc.robot.subsystems.ButtonBoard;
 import frc.robot.subsystems.arm.*;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a "declarative" paradigm, very
@@ -35,18 +33,20 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  */
 public class RobotContainer
 {
+  // Robot subsystems
+  private       Effector              effector = new Effector();
+  private       Wrist                 wrist = new Wrist();
+  private       Arm                   arm = new Arm();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   final         CommandXboxController driverXbox = new CommandXboxController(0);
-  final         CommandXboxController buttonBoard = new CommandXboxController(1);
+  // Subsystem that declares bindings is also done through this
+  final         ButtonBoard           buttonBoard = new ButtonBoard(new CommandGenericHID(1), arm, wrist, effector);
 
   // The robot's subsystems and commands are defined here...
-  private final SwerveSubsystem       drivebase  = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),
+  private final SwerveSubsystem       drivebase = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),
                                                                                 "swerve"));
 
-  public Effector effector = new Effector();
-  public Wrist wrist = new Wrist();
-  public Arm arm = new Arm();
   // Applies deadbands and inverts controls because joysticks
   // are back-right positive while robot
   // controls are front-left positive
@@ -194,7 +194,6 @@ public class RobotContainer
       driverXbox.leftBumper().whileTrue(drivebase.driveToReef(true));
       driverXbox.rightBumper().whileTrue(drivebase.driveToReef(false));
     }
-
   }
 
   /**
