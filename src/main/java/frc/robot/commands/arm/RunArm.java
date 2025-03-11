@@ -17,15 +17,10 @@ public class RunArm extends Command {
     }
 
     @Override
-    public void initialize() {
-
-    }
-
-    @Override
     public void execute() {
         // Send speeds
         tiltSpeed = xboxController.getRawAxis(1);
-        extendSpeed = xboxController.getRawAxis(5);
+        extendSpeed = xboxController.getRawAxis(0);
 
         arm.setTiltSpeed(tiltSpeed);
         arm.setExtendSpeed(extendSpeed);

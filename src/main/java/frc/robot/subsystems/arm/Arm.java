@@ -52,7 +52,7 @@ public class Arm extends SubsystemBase {
         
         if (tiltEncoderVal < ArmConstants.kTiltUpwards) {
             // arm would be angled toward back of robot 
-            return ArmConstants.kMaxDistFromPivotToRear / Math.cos(tiltEncoderVal);
+            return ArmConstants.kMaxDistFromPivotToRear / Math.cos(tiltEncoderVal) *-1;
         }
         return 0; // there is no extension limit based on arm's angle
     }
@@ -77,8 +77,7 @@ public class Arm extends SubsystemBase {
     /** Sets arm tilt speed if not going out of limit */
     public void setTiltSpeed(double speed) {
         boolean positiveTilt = (speed > 0 && getTiltEncoder() < ArmConstants.kMaxTilt);
-        boolean negativeTilt = speed < 0 && getTiltEncoder() > ArmConstants.kMinTilt && (getCurrentDistance() < getMaxDistance());
-
+        boolean negativeTilt = speed < 0 && getTiltEncoder() > ArmConstants.kMinTilt;// && (getCurrentDistance() < getMaxDistance());
         System.out.println("pos" + positiveTilt + "neg" + negativeTilt);
 
 
@@ -94,8 +93,8 @@ public class Arm extends SubsystemBase {
      
     /** Sets arm tilt speed if not going out of limit */
     public void setExtendSpeed(double speed) {
-        boolean positiveExtend = (speed < 0 && getExtendValue() > ArmConstants.kMaxExtend);
-        boolean negativeExtend = speed > 0 && getExtendValue() < ArmConstants.kMinExtend && (getCurrentDistance() < getMaxDistance());
+        boolean positiveExtend = (speed < 0 && getExtendValue() > ArmConstants.kMaxExtend);// && (getCurrentDistance() < getMaxDistance());        ;
+        boolean negativeExtend = speed > 0 && getExtendValue() < ArmConstants.kMinExtend;
 
         if (positiveExtend || negativeExtend) {
             extendMotor.set(ArmConstants.kMaxExtendSpeed * speed);

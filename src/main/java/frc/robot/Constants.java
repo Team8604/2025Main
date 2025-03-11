@@ -70,11 +70,11 @@ public final class Constants
     public static final double kMaxTiltSpeed = 0.1;
 
     // Wrist Positions TEMPORARY PLACEHOLDERS figure out from encoders values
-    public static final double kMaxPositiveTwist = 90;
-    public static final double kMaxNegativeTwist = 0;
+    public static final double kMaxPositiveTwist = 0.745;
+    public static final double kMaxNegativeTwist = 0.5;
 
-    public static final double kMaxPositiveTilt = 90;
-    public static final double kMaxNegativeTilt = -90;
+    public static final double kMaxPositiveTilt = 0.81;
+    public static final double kMaxNegativeTilt = 0.24;
 
     // Wrist positions
     public static final double kTiltStartingPos = 0;
@@ -127,7 +127,12 @@ public final class Constants
     // Arm Restrainghts 
     public static final double kMaxTiltSpeed = 0.1;
     public static final double kMaxExtendSpeed = 0.1;
-    
+
+    public static final double kTiltPIDMaxSpeed = 0.1;
+    public static final double kTiltPIDMaxAcceleration = 0.1;  
+    public static final double kExtendPIDMaxSpeed = 0.1;
+    public static final double kExtendPIDMaxAcceleration = 0.1;  
+
     // Placeholders (again)
     public static final double kMaxExtend = 0.23; // .26 Value on potentionometer
     public static final double kMinExtend = 0.725;//.4
