@@ -19,7 +19,7 @@ public class ButtonBoard {
         buttonBoard.button(0).onTrue(Commands.runOnce(this::toggleFunction)); // Toggle
         buttonBoard.button(0).onChange(Commands.runOnce(this::toggleFunction));
         
-        buttonBoard.button(0).whileTrue(Commands.either(null, null, this::getFunction));
+        //buttonBoard.button(0).whileTrue(Commands.either(null, null, this::getFunction));
     }
     
     private void toggleFunction() {
