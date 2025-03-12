@@ -197,7 +197,7 @@ public class RobotContainer
       driverXbox.back().whileTrue(Commands.none());
       driverXbox.leftBumper().whileTrue(drivebase.driveToReef(true));
       driverXbox.rightBumper().whileTrue(drivebase.driveToReef(false));
-      tempXbox.a().whileTrue(new SetArmToAngle(arm, wrist, 0));
+      tempXbox.a().whileTrue(new RunEffector(effector, -1.0));
     }
   }
 

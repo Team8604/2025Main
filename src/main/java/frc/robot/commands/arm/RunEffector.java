@@ -4,6 +4,8 @@
 
 package frc.robot.commands.arm;
 
+import frc.robot.Constants.EffectorConstants;
+import frc.robot.subsystems.ButtonBoard;
 import frc.robot.subsystems.arm.Effector;
 import edu.wpi.first.wpilibj2.command.Command;
 
@@ -11,34 +13,36 @@ import edu.wpi.first.wpilibj2.command.Command;
 public class RunEffector extends Command {
   @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
 
-  double effectorSpeed = 0, temp;
+  double effectorSpeed = 0, temp, direction;
   boolean isCoral = false;
   Effector effector;
 
   /** Sets Effector speed to intake or outtake. */
-  public RunEffector(Effector m_effector, double speed) {
+  public RunEffector(Effector m_effector, double direction) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(m_effector);
-    temp = speed;
     this.effector = m_effector;
+    this.direction = direction;
   }
 
   /** Called when the command is initially scheduled. */
   @Override
   public void execute() {
-    effector.setSpeed(effectorSpeed);
-    if (temp < 0) {
-      // would mean intake backing out
-      isCoral = false;
-    } else if (isCoral || effector.getOutputCurrent() > 20) {
-      // would mean already tripped or should based on current
-      temp = 0;
+    temp = direction;
+    // Set speed
+    if (ButtonBoard.getFunction()){
+      temp = EffectorConstants.kMaxSpeed;
+    } else if (temp > 0 && (isCoral || effector.getOutputCurrent() < 20)) {
+      System.out.println("Output" + effector.getOutputCurrent());
+      temp = EffectorConstants.kIntakeSpeed;
       isCoral = true;
+    } else {
+      temp = EffectorConstants.kOutSpeed;
+      isCoral = false;
     }
 
     // sets speed to intake motor
-    effectorSpeed = temp;
-    effector.setSpeed(effectorSpeed);
+    effector.setSpeed(temp);
   }
 
   /** Called once the command ends or is interrupted.*/

@@ -55,8 +55,8 @@ public final class Constants
     public static final int kEffector = 50;
 
     // TEMPORARY speeds
-    public static final double kMaxSpeed = 0.5;
-    public static final double kIntakeSpeed = 0.3;
+    public static final double kMaxSpeed = 0.8;
+    public static final double kIntakeSpeed = 0.5;
     public static final double kOutSpeed = -0.4;
   }
 
@@ -89,10 +89,12 @@ public final class Constants
     public static final double kRotateL2Pos = 0;
     public static final double kWristTiltL3Pos = 0;
     public static final double kRotateL3Pos = 0;
+    public static final double kWristTiltL4Pos = 0;
+    public static final double kRotateL4Pos = 0;
 
     // Pickup positions
-    public static final double kTiltPickupPos = 0;
-    public static final double kRotatePickupPos = 0;
+    public static final double kTiltPickupPos = 0.45;
+    public static final double kRotatePickupPos = 0.5;
 
 
     // Wrist Pid Values
@@ -116,20 +118,20 @@ public final class Constants
     public static final int kPotentiometerPort = 0;
 
     // Arm Pid Values
-    public static final double kExtendP = 0.1;
+    public static final double kExtendP = 1;
     public static final double kExtendI = 0;
     public static final double kExtendD = 0;
 
-    public static final double kTiltP = 0.1;
+    public static final double kTiltP = 1;
     public static final double kTiltI = 0;
-    public static final double kTiltD = 0;
+    public static final double kTiltD = 5;
 
     // Arm Restrainghts 
     public static final double kMaxTiltSpeed = 0.1;
     public static final double kMaxExtendSpeed = 0.1;
 
-    public static final double kTiltPIDMaxSpeed = 0.1;
-    public static final double kTiltPIDMaxAcceleration = 0.1;  
+    public static final double kTiltPIDMaxSpeed = 1;
+    public static final double kTiltPIDMaxAcceleration = 0.05;  
     public static final double kExtendPIDMaxSpeed = 0.1;
     public static final double kExtendPIDMaxAcceleration = 0.1;  
 
@@ -155,7 +157,7 @@ public final class Constants
     public static final double kExtendL4Pos = 0.22;
 
     // Pickup positions
-    public static final double kTiltSourcePickupPos = 91.7;
+    public static final double kTiltSourcePickupPos = 93.76;
     public static final double kExtendSourcePickupPos = .72;
     public static final double kTiltGroundPickupPos = 91.7;
     public static final double kExtendGroundPickupPos = .72;

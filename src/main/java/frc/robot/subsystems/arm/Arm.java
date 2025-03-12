@@ -52,7 +52,7 @@ public class Arm extends SubsystemBase {
         
         if (tiltEncoderVal < ArmConstants.kTiltUpwards) {
             // arm would be angled toward back of robot 
-            return ArmConstants.kMaxDistFromPivotToRear / Math.cos(tiltEncoderVal) *-1;
+            return ArmConstants.kMaxDistFromPivotToRear / Math.cos(tiltEncoderVal);
         }
         return 0; // there is no extension limit based on arm's angle
     }
@@ -71,19 +71,15 @@ public class Arm extends SubsystemBase {
         points if needed (Inches, Potentiometer)
         (27, 0.725), 34, 0.62), (41.5, 0.53)
         */
-        return (-73 * (getExtendValue() - 1.1)); // add the wrist part here
+        return -(73 * (getExtendValue() - 1.1)); // add the wrist part here
     }
 
     /** Sets arm tilt speed if not going out of limit */
     public void setTiltSpeed(double speed) {
         boolean positiveTilt = (speed > 0 && getTiltEncoder() < ArmConstants.kMaxTilt);
         boolean negativeTilt = speed < 0 && getTiltEncoder() > ArmConstants.kMinTilt;// && (getCurrentDistance() < getMaxDistance());
-        System.out.println("pos" + positiveTilt + "neg" + negativeTilt);
-
 
         if (positiveTilt || negativeTilt) {
-            System.out.println("Ran" + speed);
-
             tiltMasterMotor.set(ArmConstants.kMaxTiltSpeed * speed);
         } else {
             tiltMasterMotor.set(0);
@@ -101,6 +97,14 @@ public class Arm extends SubsystemBase {
         } else {
             extendMotor.set(0);
         }
+    }
+
+    public double getTiltSpeed(){
+        return tiltMasterMotor.get();
+    }    
+    
+    public double getExtendSpeed(){
+        return extendMotor.get();
     }
 
     @Override

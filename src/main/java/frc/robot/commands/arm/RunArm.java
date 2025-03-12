@@ -22,8 +22,12 @@ public class RunArm extends Command {
         tiltSpeed = xboxController.getRawAxis(1);
         extendSpeed = xboxController.getRawAxis(0);
 
-        arm.setTiltSpeed(tiltSpeed);
-        arm.setExtendSpeed(extendSpeed);
+        //if (tiltSpeed != 0 && arm.getTiltSpeed() != 0) {
+            arm.setTiltSpeed(tiltSpeed);
+        //}
+        //if (extendSpeed != 0 && arm.getExtendSpeed() != 0) {
+            arm.setExtendSpeed(extendSpeed);
+        //}
     }
 
     // Called once the command ends or is interrupted.

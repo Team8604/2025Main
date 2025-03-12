@@ -25,4 +25,9 @@ public class Effector extends SubsystemBase{
     public double getOutputCurrent(){
         return effectorMotor.getOutputCurrent();
     }
+
+    @Override
+    public void isFinished(){
+        return
+    }
 }
