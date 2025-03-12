@@ -6,6 +6,9 @@ package frc.robot.commands.arm;
 
 import frc.robot.Constants.EffectorConstants;
 import frc.robot.subsystems.arm.Effector;
+
+import java.util.function.BooleanSupplier;
+
 import edu.wpi.first.wpilibj2.command.Command;
 
 /** Command to run Effector to intake and dropOff */
@@ -28,6 +31,7 @@ public class RunEffector extends Command {
     addRequirements(m_effector);
     this.effector = m_effector;
     this.intake = intake;
+    this.fast = fast;
   }
 
   /** Called when the command is initially scheduled. */
@@ -36,10 +40,7 @@ public class RunEffector extends Command {
     effector.setSpeed((fast ? EffectorConstants.kMaxSpeed : EffectorConstants.kIntakeSpeed) * (intake ? 1 : -1));
   }
   
-  @Override
-  public boolean isFinished() {
-    return effector.getOutputCurrent() >= 20;
-  }
+
 
   /** Called once the command ends or is interrupted.*/
   @Override

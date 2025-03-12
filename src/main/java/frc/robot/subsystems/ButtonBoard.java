@@ -20,8 +20,8 @@ public class ButtonBoard {
         buttonBoard.button(1).onTrue(Commands.runOnce(this::toggleFunction)); // Toggle
         buttonBoard.button(2).onChange(Commands.runOnce(this::toggleFunction));
 
-        buttonBoard.button(3).whileTrue(new RunEffector(effector, false, function));
-        buttonBoard.button(4).whileTrue(new RunEffector(effector, true, function));
+        buttonBoard.button(3).whileTrue(Commands.either(new RunEffector(effector, false, true), new RunEffector(effector, false, false), this::getFunction));
+        buttonBoard.button(4).whileTrue(Commands.either(new RunEffector(effector, true, true), new RunEffector(effector, true, false), this::getFunction));
         // Button 5 & 6 are for climber
         // Button 7 is for Barge - which we cannot do
         buttonBoard.button(8).whileTrue(new SetArmToAngle(arm, wrist, 6));
@@ -42,7 +42,7 @@ public class ButtonBoard {
         function = !function;
     }
 
-    public boolean getFunction() {
+    private boolean getFunction() {
         return function;
     }
 }

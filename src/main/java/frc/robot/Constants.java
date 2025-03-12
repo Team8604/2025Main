@@ -56,7 +56,7 @@ public final class Constants
 
     // TEMPORARY speeds
     public static final double kMaxSpeed = 0.6;
-    public static final double kIntakeSpeed = 0.4;
+    public static final double kIntakeSpeed = 0.1;
   }
 
   public static class WristConstants {
