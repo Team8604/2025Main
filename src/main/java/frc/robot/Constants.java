@@ -55,9 +55,8 @@ public final class Constants
     public static final int kEffector = 50;
 
     // TEMPORARY speeds
-    public static final double kMaxSpeed = 0.8;
-    public static final double kIntakeSpeed = 0.5;
-    public static final double kOutSpeed = -0.4;
+    public static final double kMaxSpeed = 0.6;
+    public static final double kIntakeSpeed = 0.4;
   }
 
   public static class WristConstants {

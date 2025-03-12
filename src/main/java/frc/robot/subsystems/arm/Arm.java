@@ -13,6 +13,27 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ArmConstants;
 
 public class Arm extends SubsystemBase {
+    public enum Position {
+        kBrushed(0),
+        kBrushless(1);
+    
+        @SuppressWarnings("MemberName")
+        public final int value;
+    
+        Position(int value) {
+          this.value = value;
+        }
+    
+        public static Position fromId(int id) {
+          for (Position type : values()) {
+            if (type.value == id) {
+              return type;
+            }
+          }
+          return null;
+        }
+      }
+
     // Set up tilt and twist motors, and encoders
     private final SparkFlex tiltMasterMotor = new SparkFlex(ArmConstants.kTiltMaster, MotorType.kBrushless);
     private final SparkFlex tiltSlaveMotor = new SparkFlex(ArmConstants.kTiltSlave, MotorType.kBrushless);

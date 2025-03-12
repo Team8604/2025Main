@@ -19,15 +19,10 @@ public class Effector extends SubsystemBase{
     }
 
     public void setSpeed(double speed) {
-        effectorMotor.set(EffectorConstants.kMaxSpeed * MathUtil.clamp(speed, -1, 1));
+        effectorMotor.set(MathUtil.clamp(speed, -1, 1));
     }
 
     public double getOutputCurrent(){
         return effectorMotor.getOutputCurrent();
-    }
-
-    @Override
-    public void isFinished(){
-        return
     }
 }

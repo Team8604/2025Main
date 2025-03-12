@@ -7,7 +7,7 @@ import frc.robot.subsystems.arm.*;
 
 public class ButtonBoard {
     CommandGenericHID buttonBoard;
-    static boolean function;
+    boolean function;
 
     /**
      * Command to configure all of the operator controls on the button board
@@ -20,8 +20,8 @@ public class ButtonBoard {
         buttonBoard.button(1).onTrue(Commands.runOnce(this::toggleFunction)); // Toggle
         buttonBoard.button(2).onChange(Commands.runOnce(this::toggleFunction));
 
-        buttonBoard.button(3).whileTrue(new RunEffector(effector, -1.0));
-        buttonBoard.button(4).whileTrue(new RunEffector(effector, 1.0));
+        buttonBoard.button(3).whileTrue(new RunEffector(effector, false, function));
+        buttonBoard.button(4).whileTrue(new RunEffector(effector, true, function));
         // Button 5 & 6 are for climber
         // Button 7 is for Barge - which we cannot do
         buttonBoard.button(8).whileTrue(new SetArmToAngle(arm, wrist, 6));
@@ -39,10 +39,10 @@ public class ButtonBoard {
     }
     
     private void toggleFunction() {
-        ButtonBoard.function = !function;
+        function = !function;
     }
 
-    public static boolean getFunction() {
+    public boolean getFunction() {
         return function;
     }
 }
