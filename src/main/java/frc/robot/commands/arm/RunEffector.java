@@ -18,6 +18,7 @@ public class RunEffector extends Command {
   boolean intake, fast;
   static boolean isCoral = false;
   Effector effector;
+  int over = 0;
 
   /**
    * Sets effector speed
@@ -38,9 +39,17 @@ public class RunEffector extends Command {
   @Override
   public void initialize() {
     effector.setSpeed((fast ? EffectorConstants.kMaxSpeed : EffectorConstants.kIntakeSpeed) * (intake ? 1 : -1));
+    over = 0;
   }
   
-
+  @Override
+  public void execute(){
+    over += (effector.getOutputCurrent() > 15) ? 1 : 0;
+    if (over > 10) {
+      effector.setSpeed(0);
+    }
+    
+  }
 
   /** Called once the command ends or is interrupted.*/
   @Override

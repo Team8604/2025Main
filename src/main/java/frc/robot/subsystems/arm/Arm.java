@@ -42,17 +42,10 @@ public class Arm extends SubsystemBase {
     private final DutyCycleEncoder tiltEncoder = new DutyCycleEncoder(ArmConstants.kTiltEncoderPort);    
     private final AnalogPotentiometer potentiometer = new AnalogPotentiometer(ArmConstants.kPotentiometerPort);
 
-    private SparkFlexConfig motorConfig = new SparkFlexConfig();
-    private SparkFlexConfig slaveMotorConfig = new SparkFlexConfig();
 
     public Arm() {
         // Set yp slave config
-        slaveMotorConfig.follow(ArmConstants.kTiltMaster);
 
-        // Configure motors
-        tiltMasterMotor.configure(motorConfig, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
-        tiltSlaveMotor.configure(slaveMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
-        extendMotor.configure(motorConfig, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
     }
 
     /** Returns arm tilt encoder value in degrees*/

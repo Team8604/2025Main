@@ -20,11 +20,8 @@ public class Wrist extends SubsystemBase {
     private final SparkAbsoluteEncoder tiltEncoder = tiltMotor.getAbsoluteEncoder();
     private final SparkAbsoluteEncoder twistEncoder = twistMotor.getAbsoluteEncoder();
 
-    private SparkMaxConfig motorConfig = new SparkMaxConfig();;
 
     public Wrist() {
-        tiltMotor.configure(motorConfig, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
-        twistMotor.configure(motorConfig, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
     }
 
     public double getTwistEncoder() {

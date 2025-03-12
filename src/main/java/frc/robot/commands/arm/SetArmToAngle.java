@@ -74,10 +74,10 @@ public class SetArmToAngle extends Command {
     private void wristTwist (double wristTwistTarget){
         double wristTwistPos = wrist.getTwistEncoder();
 
-        if (wristTwistPos < wristTwistTarget && !(wristTwistPos > wristTwistTarget-.005)) {
-            wrist.setTiltSpeed(1.5);
-        } else if (wristTwistPos > wristTwistTarget && !(wristTwistPos < wristTwistTarget+.005)) {
-            wrist.setTiltSpeed(-1.5);
+        if (wristTwistPos < wristTwistTarget && !(wristTwistPos < wristTwistTarget+2)) {
+            wrist.setTwistSpeed(0.2);
+        } else if (wristTwistPos > wristTwistTarget && !(wristTwistPos > wristTwistTarget-2)) {
+            wrist.setTwistSpeed(-0.2);
         } else {
             wrist.setTiltSpeed(0);
         }
@@ -106,7 +106,7 @@ public class SetArmToAngle extends Command {
             case 3:
                 //armTilt(ArmConstants.kTiltL4Pos);
                 //armExtend(ArmConstants.kExtendL4Pos);
-                //wristTilt(WristConstants.kWristTiltL4Pos);
+                wristTilt(WristConstants.kWristTiltL4Pos);
                 wristTwist(0.6);
                 break;
             case 4:
