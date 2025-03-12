@@ -16,10 +16,8 @@ public class Climber extends SubsystemBase {
     
     private final RelativeEncoder climbEncoder = new extendMotor.getEncoder();
 
-    private SparkFlexConfig motorConfig = new SparkFlexConfig();
 
     public Climber() {
-        extendMotor.configure(motorConfig, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
     }
 
     public double getClimbEncoder() {
