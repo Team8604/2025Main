@@ -40,22 +40,20 @@ public class Arm extends SubsystemBase {
     private final SparkFlex extendMotor = new SparkFlex(ArmConstants.kExtend, MotorType.kBrushless);
 
     private final DutyCycleEncoder tiltEncoder = new DutyCycleEncoder(ArmConstants.kTiltEncoderPort);    
-    private final AnalogPotentiometer potentiometer = new AnalogPotentiometer(ArmConstants.kPotentiometerPort);
-
-
-    public Arm() {
-        // Set yp slave config
-
-    }
-
-    /** Returns arm tilt encoder value in degrees*/
-    public double getTiltEncoder() {
-        return tiltEncoder.get() * 360;
-    }
-
-    /** Returns arm extension potentiometer */
-    public double getExtendValue() {
-        return potentiometer.get();
+    private final static AnalogPotentiometer potentiometer = new AnalogPotentiometer(ArmConstants.kPotentiometerPort);
+    
+    
+        public Arm() {
+        }
+    
+        /** Returns arm tilt encoder value in degrees*/
+        public double getTiltEncoder() {
+            return tiltEncoder.get() * 360;
+        }
+    
+        /** Returns arm extension potentiometer */
+        public static double getExtendValue() {
+            return potentiometer.get();
     }
 
      /** Returns the maximum distance before extension limit from the arm pivot 

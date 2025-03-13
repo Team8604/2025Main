@@ -4,7 +4,9 @@
 
 package frc.robot.commands.arm;
 
+import frc.robot.RobotContainer;
 import frc.robot.Constants.EffectorConstants;
+import frc.robot.subsystems.arm.Arm;
 import frc.robot.subsystems.arm.Effector;
 
 import java.util.function.BooleanSupplier;
@@ -38,7 +40,7 @@ public class RunEffector extends Command {
   /** Called when the command is initially scheduled. */
   @Override
   public void initialize() {
-    effector.setSpeed((fast ? EffectorConstants.kMaxSpeed : EffectorConstants.kIntakeSpeed) * (intake ? 1 : -1));
+    effector.setSpeed((fast ? EffectorConstants.kMaxSpeed : EffectorConstants.kIntakeSpeed) * (intake ? 1 : (Arm.getExtendValue() > 0.7 ? -.7 : -0.3)));
     over = 0;
   }
   

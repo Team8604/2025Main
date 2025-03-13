@@ -21,4 +21,9 @@ public class Effector extends SubsystemBase{
     public double getOutputCurrent(){
         return effectorMotor.getOutputCurrent();
     }
+
+    @Override
+    public void periodic(){
+        SmartDashboard.putNumber("Effector speed", effectorMotor.get());
+    }
 }
