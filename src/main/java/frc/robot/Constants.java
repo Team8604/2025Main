@@ -160,7 +160,8 @@ public final class Constants
     public static final double kExtendGroundPickupPos = .72;
     
     // Constants for calculating max extensions
-    public static final double kTiltUpwards = 130; // arm angled straight upwards
+    public static final double kTiltUpwards = 105; // arm max distance equation number
+    public static final double kArmTiltLevel = 50.5;
 
     public static final double kMaxDistFromPivotToFront = 20.75; // distance from pivot to extension limit in inches
     public static final double kMaxDistFromPivotToRear = 27.25 + 18; // distance from pivot to extension limit of the other side

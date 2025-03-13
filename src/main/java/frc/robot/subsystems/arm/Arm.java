@@ -64,7 +64,7 @@ public class Arm extends SubsystemBase {
         
         if (tiltEncoderVal < ArmConstants.kTiltUpwards) {
             // arm would be angled toward back of robot 
-            return ArmConstants.kMaxDistFromPivotToRear / Math.cos(tiltEncoderVal);
+            return ArmConstants.kMaxDistFromPivotToRear / Math.abs(Math.cos(tiltEncoderVal-ArmConstants.kArmTiltLevel));
         }
         return 0; // there is no extension limit based on arm's angle
     }
@@ -83,13 +83,13 @@ public class Arm extends SubsystemBase {
         points if needed (Inches, Potentiometer)
         (27, 0.725), 34, 0.62), (41.5, 0.53)
         */
-        return -(73 * (getExtendValue() - 1.1)); // add the wrist part here
+        return -(73 * (getExtendValue() - 1.1)) +12; // add the wrist part here
     }
 
     /** Sets arm tilt speed if not going out of limit */
     public void setTiltSpeed(double speed) {
         boolean positiveTilt = (speed > 0 && getTiltEncoder() < ArmConstants.kMaxTilt);
-        boolean negativeTilt = speed < 0 && getTiltEncoder() > ArmConstants.kMinTilt;// && (getCurrentDistance() < getMaxDistance());
+        boolean negativeTilt = speed < 0 && getTiltEncoder() > ArmConstants.kMinTilt && (getCurrentDistance() < getMaxDistance());
 
         if (positiveTilt || negativeTilt) {
             tiltMasterMotor.set(ArmConstants.kMaxTiltSpeed * speed);
@@ -101,7 +101,7 @@ public class Arm extends SubsystemBase {
      
     /** Sets arm tilt speed if not going out of limit */
     public void setExtendSpeed(double speed) {
-        boolean positiveExtend = (speed < 0 && getExtendValue() > ArmConstants.kMaxExtend);// && (getCurrentDistance() < getMaxDistance());        ;
+        boolean positiveExtend = (speed < 0 && getExtendValue() > ArmConstants.kMaxExtend) && (getCurrentDistance() < getMaxDistance());        ;
         boolean negativeExtend = speed > 0 && getExtendValue() < ArmConstants.kMinExtend;
 
         if (positiveExtend || negativeExtend) {
@@ -121,13 +121,15 @@ public class Arm extends SubsystemBase {
 
     @Override
     public void periodic(){
-        SmartDashboard.putNumber("Arm Tilt Encoder", getTiltEncoder());
+        SmartDashboard.putNumber("Arm Tilt Encoder", getTiltEncoder() - ArmConstants.kArmTiltLevel);
         SmartDashboard.putNumber("Arm Extend Potentiometer", getExtendValue());
         
         SmartDashboard.putNumber("Arm Extend speed", extendMotor.get());
         SmartDashboard.putNumber("Arm Tilt speed", tiltMasterMotor.get());
 
         SmartDashboard.putNumber("Arm Max Distance", getMaxDistance());
+        SmartDashboard.putNumber("test", Math.cos(getTiltEncoder()-ArmConstants.kArmTiltLevel));
+
         SmartDashboard.putNumber("Arm Current Distance", getCurrentDistance());
     }
 }
