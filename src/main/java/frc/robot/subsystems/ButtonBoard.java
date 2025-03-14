@@ -23,32 +23,39 @@ public class ButtonBoard {
         buttonBoard.button(3).whileTrue(Commands.either(new RunEffector(effector, false, true), new RunEffector(effector, false, false), this::getFunction));
         buttonBoard.button(4).whileTrue(Commands.either(new RunEffector(effector, true, true), new RunEffector(effector, true, false), this::getFunction));
         // Button 5 & 6 are for climber
-
         // For starting pos or run wrist left
-        buttonBoard.button(7).whileTrue(Commands.either(new SetArmToAngle(arm, wrist, 7), new RunWristTilt(wrist, 1), this::getFunction));
+        buttonBoard.button(7).whileTrue(Commands.either(new SetArmToAngle(arm, wrist, 7), new RunWristRotate(wrist, 1), this::getFunction));
+        //buttonBoard.button(7).whileFalse(Commands.either(new SetArmToAngle(arm, wrist, 10), new RunWristRotate(wrist, 0), this::getFunction));
 
         // For source pos or run wrist Right
-        buttonBoard.button(8).whileTrue(new SetArmToAngle(arm, wrist, 6));
+        buttonBoard.button(8).whileTrue(Commands.either(new SetArmToAngle(arm, wrist, 6), new RunWristRotate(wrist, -1), this::getFunction));
+        //buttonBoard.button(8).whileFalse(Commands.either(new SetArmToAngle(arm, wrist, 10), new RunWristRotate(wrist, 0), this::getFunction));
 
         // Button 9 is for Processor - which we cannot do
         // For empty or wrist up
         buttonBoard.button(9).whileTrue(new RunWristTilt(wrist, 1));
+        //buttonBoard.button(9).whileFalse(Commands.either(new SetArmToAngle(arm, wrist, 10), new RunWristTilt(wrist, 0), this::getFunction));
 
-        // For Ground pos or wrist Down
-        buttonBoard.button(10).whileTrue(Commands.either(new SetArmToAngle(arm, wrist, 4), new RunWristTilt(wrist, -1), this::getFunction));
+        // For nothing pos or wrist Down
+        buttonBoard.button(10).whileTrue(Commands.either(new SetArmToAngle(arm, wrist, 10), new RunWristTilt(wrist, -1), this::getFunction));
+        //buttonBoard.button(10).whileFalse(Commands.either(new SetArmToAngle(arm, wrist, 10), new RunWristTilt(wrist, 0), this::getFunction));
 
         // For L4 pos or arm out
-        buttonBoard.button(11).whileTrue(Commands.either(new SetArmToAngle(arm, wrist, 3), new RunArmExtend(arm, 1), this::getFunction));
-        
+        buttonBoard.button(11).whileTrue(Commands.either(new SetArmToAngle(arm, wrist, 3), new RunArmExtend(arm, -1), this::getFunction));
+        //buttonBoard.button(11).whileFalse(Commands.either(new SetArmToAngle(arm, wrist, 10), new RunArmExtend(arm, 0), this::getFunction));
+
         // For L3 pos or arm in
-        buttonBoard.button(12).whileTrue(Commands.either(new SetArmToAngle(arm, wrist, 2), new RunArmExtend(arm, -1), this::getFunction));
+        buttonBoard.button(12).whileTrue(Commands.either(new SetArmToAngle(arm, wrist, 2), new RunArmExtend(arm, 1), this::getFunction));
+        //buttonBoard.button(12).whileFalse(Commands.either(new SetArmToAngle(arm, wrist, 10), new RunArmExtend(arm, 0), this::getFunction));
 
         // For L2 pos or arm up
         buttonBoard.pov(270).whileTrue(Commands.either(new SetArmToAngle(arm, wrist, 1), new RunArmTilt(arm, 1), this::getFunction));
+        //buttonBoard.pov(270).whileFalse(Commands.either(new SetArmToAngle(arm, wrist, 10), new RunArmTilt(arm, 0), this::getFunction));
 
         // For Trough pos or arm down
-        buttonBoard.pov(90).whileTrue(Commands.either(new SetArmToAngle(arm, wrist, 0), new RunArmTilt(arm, 1), this::getFunction));
-        
+        buttonBoard.pov(90).whileTrue(Commands.either(new SetArmToAngle(arm, wrist, 0), new RunArmTilt(arm, -1), this::getFunction));
+        //buttonBoard.pov(90).whileFalse(Commands.either(new SetArmToAngle(arm, wrist, 10), new RunArmTilt(arm, 0), this::getFunction));
+
         //buttonBoard.button(0).whileTrue(Commands.either(null, null, this::getFunction));
     }
     
@@ -56,7 +63,7 @@ public class ButtonBoard {
         function = !function;
     }
 
-    private boolean getFunction() {
+    public boolean getFunction() {
         return function;
     }
 }

@@ -17,6 +17,7 @@ public class SetArmToAngle extends Command {
      * positions - 0-trough, 1-L2, 2-L3, 3-L4
      * 4-Ground, 5-Processor, 6-Source, 7-Barge
      * 8-lower Alague, 9-Higher Alague
+     * 10-Nothing
      */
     public SetArmToAngle(Arm m_arm, Wrist m_wrist, int position) { 
         addRequirements(m_arm, m_wrist);
@@ -39,12 +40,17 @@ public class SetArmToAngle extends Command {
     }
 
     private void armExtend (double armExtendTarget){
-        double armExtendPos = arm.getExtendEncoder();
+        double armExtendPos = Arm.getExtendEncoder();
 
-        if (armExtendPos > armExtendTarget && !(armExtendPos < armExtendTarget+0.02)) {
-            arm.setExtendSpeed(-3);
-        } else if (armExtendPos < armExtendTarget && !(armExtendPos > armExtendTarget-.02)) {
-            arm.setExtendSpeed(3);
+        // Speed is negative when going outwards
+        // Encoder = 0 when in all the way
+
+        // 100 > 10 && !(100 < 10-1)
+        // 10 > 2 && !(10 <2-1)
+        if (armExtendPos > armExtendTarget && !(armExtendPos < armExtendTarget+3)) {
+            arm.setExtendSpeed(2); //3
+        } else if (armExtendPos < armExtendTarget && !(armExtendPos > armExtendTarget+3)) {
+            arm.setExtendSpeed(-2);//-3
         } else {
             arm.setExtendSpeed(0);
         }
@@ -67,12 +73,8 @@ public class SetArmToAngle extends Command {
 
         if (wristTwistPos < wristTwistTarget && !(wristTwistPos > wristTwistTarget+2)) {
             wrist.setTwistSpeed(0.25);
-            System.out.println("2");
-
         } else if (wristTwistPos > wristTwistTarget && !(wristTwistPos < wristTwistTarget-2)) {
             wrist.setTwistSpeed(-0.25);
-            System.out.println("-2");
-
         } else {
             wrist.setTiltSpeed(0);
         }
@@ -131,7 +133,7 @@ public class SetArmToAngle extends Command {
                 armExtend(ArmConstants.kExtendSourcePickupPos);
                 wristTwist(WristConstants.kRotatePickupPos);
                 wristTilt(WristConstants.kTiltPickupPos);
-                if (arm.getExtendEncoder() > 0.4) {
+                if (arm.getExtendEncoder() < 20) {
                     armTilt(ArmConstants.kTiltSourcePickupPos);
                 }
                 break;
@@ -140,7 +142,7 @@ public class SetArmToAngle extends Command {
                 armExtend(ArmConstants.kExtendStartingPos);
                 wristTwist(WristConstants.kRotateStartingPos);
                 wristTilt(WristConstants.kTiltStartingPos);
-                if (arm.getExtendEncoder() > 0.65 && wrist.getTiltEncoder() > .54) {
+                if (arm.getExtendEncoder() < 8 && wrist.getTiltEncoder() > .54) {
                     armTilt(ArmConstants.kTiltStartingPos);
                 }
 
@@ -151,6 +153,9 @@ public class SetArmToAngle extends Command {
                 break;
             case 9:
                 // Higher Alague Pickup
+                break;
+            case 10:
+                // Nothing
                 break;
         } 
     }

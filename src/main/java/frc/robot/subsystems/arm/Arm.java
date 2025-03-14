@@ -38,6 +38,7 @@ public class Arm extends SubsystemBase {
     private final DutyCycleEncoder tiltEncoder = new DutyCycleEncoder(ArmConstants.kTiltEncoderPort);
 
     public Arm() {
+        extendMotor.getEncoder().setPosition(0);
     }
 
     /** Returns arm tilt encoder value in degrees */
@@ -101,10 +102,9 @@ public class Arm extends SubsystemBase {
 
     /** Sets arm tilt speed if not going out of limit */
     public void setExtendSpeed(double speed) {
-        boolean positiveExtend = (speed < 0 && getExtendEncoder() > ArmConstants.kMaxExtend)
+        boolean positiveExtend = (speed < 0 && getExtendEncoder() < ArmConstants.kMaxExtend)
                 && (getCurrentDistance() < getMaxDistance());
-        ;
-        boolean negativeExtend = speed > 0 && getExtendEncoder() < ArmConstants.kMinExtend;
+        boolean negativeExtend = speed > 0 && getExtendEncoder() > ArmConstants.kMinExtend;
 
         if (positiveExtend || negativeExtend) {
             extendMotor.set(ArmConstants.kMaxExtendSpeed * speed);
