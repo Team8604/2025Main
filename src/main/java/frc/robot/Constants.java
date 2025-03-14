@@ -77,17 +77,17 @@ public final class Constants
 
     // Wrist positions
     public static final double kTiltStartingPos = 0.81;
-    public static final double kRotateStartingPos = 0.49;
+    public static final double kRotateStartingPos = 0.5;
 
     // Coral scoring positions 
     public static final double kWristTiltTrofPos = 0.34;
-    public static final double kRotateTrofPos = 0.48;
+    public static final double kRotateTrofPos = 0.5;
     public static final double kWristTiltL2Pos = .51;
-    public static final double kRotateL2Pos = 0.74;
-    public static final double kWristTiltL3Pos = 0.54;
+    public static final double kRotateL2Pos = 0.75;
+    public static final double kWristTiltL3Pos = 0.6;
     public static final double kRotateL3Pos = 0.75;
-    public static final double kWristTiltL4Pos = 0.61;
-    public static final double kRotateL4Pos = 0.6;
+    public static final double kWristTiltL4Pos = 0.6;
+    public static final double kRotateL4Pos = 0.75;
 
     // Pickup positions
     public static final double kTiltPickupPos = 0.45;
@@ -149,7 +149,7 @@ public final class Constants
     public static final double kTiltL2Pos = 84.6;
     public static final double kExtendL2Pos = 2;
     public static final double kTiltL3Pos = 131.1;
-    public static final double kExtendL3Pos = 2;
+    public static final double kExtendL3Pos = 8.64;
     public static final double kTiltL4Pos = 139;
     public static final double kExtendL4Pos = 105.5;
 

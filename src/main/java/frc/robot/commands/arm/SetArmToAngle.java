@@ -71,9 +71,9 @@ public class SetArmToAngle extends Command {
     private void wristTwist (double wristTwistTarget){
         double wristTwistPos = wrist.getTwistEncoder();
 
-        if (wristTwistPos < wristTwistTarget && !(wristTwistPos > wristTwistTarget+2)) {
+        if (wristTwistPos < wristTwistTarget && !(wristTwistPos > wristTwistTarget+.2)) {
             wrist.setTwistSpeed(0.25);
-        } else if (wristTwistPos > wristTwistTarget && !(wristTwistPos < wristTwistTarget-2)) {
+        } else if (wristTwistPos > wristTwistTarget && !(wristTwistPos < wristTwistTarget-.1)) {
             wrist.setTwistSpeed(-0.25);
         } else {
             wrist.setTiltSpeed(0);
@@ -113,6 +113,7 @@ public class SetArmToAngle extends Command {
                 break;
             
             case 3:
+                // Score in Level 4
                 armTilt(ArmConstants.kTiltL4Pos);
                 if (arm.getTiltEncoder() > 70) {
                     armExtend(ArmConstants.kExtendL4Pos);
