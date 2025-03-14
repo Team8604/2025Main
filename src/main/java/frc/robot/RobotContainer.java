@@ -12,7 +12,6 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandGenericHID;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -22,7 +21,6 @@ import frc.robot.commands.swervedrive.drivebase.AbsoluteDriveAdv;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import java.io.File;
 import swervelib.SwerveInputStream;
-import frc.robot.commands.arm.*;
 import frc.robot.subsystems.ButtonBoard;
 import frc.robot.subsystems.arm.*;
 
@@ -42,7 +40,6 @@ public class RobotContainer
   final         CommandXboxController driverXbox = new CommandXboxController(0);
   // Subsystem that declares bindings is also done through this
   final         ButtonBoard           buttonBoard = new ButtonBoard(new CommandGenericHID(1), arm, wrist, effector);
-  public final static        CommandXboxController tempXbox = new CommandXboxController(2);
 
   // The robot's subsystems and commands are defined here...
   private final SwerveSubsystem       drivebase = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),
@@ -169,10 +166,6 @@ public class RobotContainer
                                 driveFieldOrientedAnglularVelocity :
                                 driveFieldOrientedAnglularVelocity);
 
-
-    CommandScheduler.getInstance().setDefaultCommand(arm, new RunArm(arm, tempXbox));
-    CommandScheduler.getInstance().setDefaultCommand(wrist, new RunWrist(wrist, tempXbox));
-
     if (Robot.isSimulation()) {
       driverXbox.start().onTrue(Commands.runOnce(() -> drivebase.resetOdometry(new Pose2d(3, 3, new Rotation2d()))));
     }
@@ -197,7 +190,6 @@ public class RobotContainer
       driverXbox.back().whileTrue(Commands.none());
       driverXbox.leftBumper().whileTrue(drivebase.driveToReef(true));
       driverXbox.rightBumper().whileTrue(drivebase.driveToReef(false));
-      tempXbox.a().whileTrue(new RunEffector(effector, false, false));
     }
   }
 
