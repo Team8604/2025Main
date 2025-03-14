@@ -40,7 +40,7 @@ public class SetArmToAngle extends Command {
     }
 
     private void armExtend (double armExtendTarget){
-        double armExtendPos = arm.getExtendValue();
+        double armExtendPos = arm.getExtendEncoder();
 
         if (armExtendPos > armExtendTarget && !(armExtendPos < armExtendTarget+0.02)) {
             arm.setExtendSpeed(-3);
@@ -132,7 +132,7 @@ public class SetArmToAngle extends Command {
                 armExtend(ArmConstants.kExtendSourcePickupPos);
                 wristTwist(WristConstants.kRotatePickupPos);
                 wristTilt(WristConstants.kTiltPickupPos);
-                if (arm.getExtendValue() > 0.4) {
+                if (arm.getExtendEncoder() > 0.4) {
                     armTilt(ArmConstants.kTiltSourcePickupPos);
                 }
                 break;
@@ -141,7 +141,7 @@ public class SetArmToAngle extends Command {
                 armExtend(ArmConstants.kExtendStartingPos);
                 wristTwist(WristConstants.kRotateStartingPos);
                 wristTilt(WristConstants.kTiltStartingPos);
-                if (arm.getExtendValue() > 0.65 && wrist.getTiltEncoder() > .54) {
+                if (arm.getExtendEncoder() > 0.65 && wrist.getTiltEncoder() > .54) {
                     armTilt(ArmConstants.kTiltStartingPos);
                 }
 

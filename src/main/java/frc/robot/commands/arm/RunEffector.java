@@ -40,7 +40,7 @@ public class RunEffector extends Command {
   /** Called when the command is initially scheduled. */
   @Override
   public void initialize() {
-    effector.setSpeed((fast ? EffectorConstants.kMaxSpeed : EffectorConstants.kIntakeSpeed) * (intake ? 1 : (Arm.getExtendValue() > 0.7 ? -.7 : -0.3)));
+    effector.setSpeed((fast ? EffectorConstants.kMaxSpeed : EffectorConstants.kIntakeSpeed) * (intake ? 1 : (Arm.getExtendEncoder() > 0.7 ? -.7 : -0.3)));
     over = 0;
   }
   
