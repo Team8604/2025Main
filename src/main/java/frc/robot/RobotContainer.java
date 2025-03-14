@@ -21,6 +21,7 @@ import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.arm.RunArm;
 import frc.robot.commands.arm.RunEffector;
 import frc.robot.commands.arm.RunWrist;
+import frc.robot.commands.arm.SetArmToAngle;
 import frc.robot.commands.swervedrive.drivebase.AbsoluteDriveAdv;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import java.io.File;
@@ -211,6 +212,7 @@ public class RobotContainer
   public Command getAutonomousCommand()
   {
     // An example command will be run in autonomous
+    NamedCommands.registerCommand("Trough Position", new SetArmToAngle(arm, wrist, 0));
     return drivebase.getAutonomousCommand("Test Auto");
   }
 
