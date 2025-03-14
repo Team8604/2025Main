@@ -15,7 +15,6 @@ public class Wrist extends SubsystemBase {
     private final SparkAbsoluteEncoder tiltEncoder = tiltMotor.getAbsoluteEncoder();
     private final SparkAbsoluteEncoder twistEncoder = twistMotor.getAbsoluteEncoder();
 
-
     public Wrist() {
     }
 
@@ -47,14 +46,6 @@ public class Wrist extends SubsystemBase {
         } else {
             twistMotor.set(0);
         }
-    }
-
-    /** Returns the distance the arm's wrist from the pivot, to the tip of the effector 
-     * Works with getCurrentDistacne in Arm subsystem
-    */
-    public double getCurrentDistance() {
-        //
-        return 0;
     }
 
     @Override

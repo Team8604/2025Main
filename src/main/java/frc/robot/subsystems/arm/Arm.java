@@ -83,7 +83,7 @@ public class Arm extends SubsystemBase {
          * points if needed (Inches, encoder)
          * (27, 0), (41.5, 123.721)
          */
-        return (getExtendEncoder() / 8.5) + 27; // add the wrist part here
+        return (getExtendEncoder() / 8.5) + 27; // 27 is the wrist part
     }
 
     /** Sets arm tilt speed if not going out of limit */
@@ -96,7 +96,6 @@ public class Arm extends SubsystemBase {
             tiltMasterMotor.set(ArmConstants.kMaxTiltSpeed * speed);
         } else {
             tiltMasterMotor.set(0);
-
         }
     }
 

@@ -21,9 +21,9 @@ public class RunEffector extends Command {
   /**
    * Sets effector speed
    * 
-   * @param m_effector
-   * @param intake
-   * @param fast whether the 
+   * @param m_effector subsystem
+   * @param intake direction (in or out)
+   * @param fast whether the speed is fast or slow
    */
   public RunEffector(Effector m_effector, boolean intake, boolean fast) {
     // Use addRequirements() here to declare subsystem dependencies.
@@ -45,8 +45,7 @@ public class RunEffector extends Command {
     over += (effector.getOutputCurrent() > 15) ? 1 : 0;
     if (over > 10) {
       effector.setSpeed(0);
-    }
-    
+    } 
   }
 
   /** Called once the command ends or is interrupted.*/

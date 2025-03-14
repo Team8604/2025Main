@@ -17,7 +17,6 @@ public class SetArmToAngle extends Command {
      * positions - 0-trough, 1-L2, 2-L3, 3-L4
      * 4-Ground, 5-Processor, 6-Source, 7-Barge
      * 8-lower Alague, 9-Higher Alague
-     * 10-Nothing
      */
     public SetArmToAngle(Arm m_arm, Wrist m_wrist, int position) { 
         addRequirements(m_arm, m_wrist);
@@ -44,13 +43,10 @@ public class SetArmToAngle extends Command {
 
         // Speed is negative when going outwards
         // Encoder = 0 when in all the way
-
-        // 100 > 10 && !(100 < 10-1)
-        // 10 > 2 && !(10 <2-1)
         if (armExtendPos > armExtendTarget && !(armExtendPos < armExtendTarget+3)) {
-            arm.setExtendSpeed(2); //3
+            arm.setExtendSpeed(2); 
         } else if (armExtendPos < armExtendTarget && !(armExtendPos > armExtendTarget+3)) {
-            arm.setExtendSpeed(-2);//-3
+            arm.setExtendSpeed(-2);
         } else {
             arm.setExtendSpeed(0);
         }
@@ -154,9 +150,6 @@ public class SetArmToAngle extends Command {
                 break;
             case 9:
                 // Higher Alague Pickup
-                break;
-            case 10:
-                // Nothing
                 break;
         } 
     }
