@@ -66,7 +66,7 @@ public class Arm extends SubsystemBase {
             // arm would be angled toward back of robot 
             return ArmConstants.kMaxDistFromPivotToRear / Math.abs(Math.cos(tiltEncoderVal-ArmConstants.kArmTiltLevel));
         }
-        return 0; // there is no extension limit based on arm's angle
+        return 999; // there is no extension limit based on arm's angle
     }
 
     /** Returns the distance the arm is from the pivot, to the tip of the wrist joint
@@ -121,14 +121,13 @@ public class Arm extends SubsystemBase {
 
     @Override
     public void periodic(){
-        SmartDashboard.putNumber("Arm Tilt Encoder", getTiltEncoder() - ArmConstants.kArmTiltLevel);
+        SmartDashboard.putNumber("Arm Tilt Encoder", getTiltEncoder());
         SmartDashboard.putNumber("Arm Extend Potentiometer", getExtendValue());
         
         SmartDashboard.putNumber("Arm Extend speed", extendMotor.get());
         SmartDashboard.putNumber("Arm Tilt speed", tiltMasterMotor.get());
 
         SmartDashboard.putNumber("Arm Max Distance", getMaxDistance());
-        SmartDashboard.putNumber("test", Math.cos(getTiltEncoder()-ArmConstants.kArmTiltLevel));
 
         SmartDashboard.putNumber("Arm Current Distance", getCurrentDistance());
     }

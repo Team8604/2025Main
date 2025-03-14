@@ -23,7 +23,8 @@ public class ButtonBoard {
         buttonBoard.button(3).whileTrue(Commands.either(new RunEffector(effector, false, true), new RunEffector(effector, false, false), this::getFunction));
         buttonBoard.button(4).whileTrue(Commands.either(new RunEffector(effector, true, true), new RunEffector(effector, true, false), this::getFunction));
         // Button 5 & 6 are for climber
-        // Button 7 is for Barge - which we cannot do
+        buttonBoard.button(7).whileTrue(new SetArmToAngle(arm, wrist, 7));
+
         buttonBoard.button(8).whileTrue(new SetArmToAngle(arm, wrist, 6));
         // Button 9 is for Processor - which we cannot do
         buttonBoard.button(10).whileTrue(new SetArmToAngle(arm, wrist, 4));
