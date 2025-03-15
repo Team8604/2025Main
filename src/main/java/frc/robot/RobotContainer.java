@@ -142,6 +142,12 @@ public class RobotContainer
    */
   public RobotContainer()
   {
+    NamedCommands.registerCommand("Trough Position", new SetArmToAngle(arm, wrist, 0));
+    NamedCommands.registerCommand("L2 Position", new SetArmToAngle(arm, wrist, 1));
+    NamedCommands.registerCommand("L3 Position", new SetArmToAngle(arm, wrist, 2));
+    NamedCommands.registerCommand("L4 Position", new SetArmToAngle(arm, wrist, 3));
+    NamedCommands.registerCommand("Effector out", new RunEffector(effector, false, false ));
+    NamedCommands.registerCommand("Effector in", new RunEffector(effector, true, false));
     // Configure the trigger bindings
     configureBindings();
     DriverStation.silenceJoystickConnectionWarning(true);
@@ -212,13 +218,6 @@ public class RobotContainer
   public Command getAutonomousCommand()
   {
     // An example command will be run in autonomous
-    NamedCommands.registerCommand("Trough Position", new SetArmToAngle(arm, wrist, 0));
-    NamedCommands.registerCommand("L2 Position", new SetArmToAngle(arm, wrist, 1));
-    NamedCommands.registerCommand("L3 Position", new SetArmToAngle(arm, wrist, 2));
-    NamedCommands.registerCommand("L4 Position", new SetArmToAngle(arm, wrist, 3));
-    NamedCommands.registerCommand("Effector out", new RunEffector(effector, false, false ));
-    NamedCommands.registerCommand("Effector in", new RunEffector(effector, true, false));
-
     return drivebase.getAutonomousCommand("Test Auto");
   }
 
