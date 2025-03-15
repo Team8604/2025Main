@@ -48,6 +48,12 @@ public class ButtonBoard {
         // For Trough pos or arm down
         buttonBoard.pov(90).whileTrue(Commands.either(new SetArmToAngle(arm, wrist, 0), new RunArmTilt(arm, -1), this::getFunction));
 
+        // For Arm out manually
+        buttonBoard.pov(180).whileTrue(new RunArmExtend(arm, -1));
+
+        // Fpr Arm in manually
+        buttonBoard.pov(0).whileTrue(new RunArmExtend(arm, 1));
+
         //buttonBoard.button(0).whileTrue(Commands.either(null, null, this::getFunction));
     }
     

@@ -149,9 +149,9 @@ public final class Constants
     public static final double kTiltL2Pos = 84.6;
     public static final double kExtendL2Pos = 2;
     public static final double kTiltL3Pos = 131.1;
-    public static final double kExtendL3Pos = 8.64;
+    public static final double kExtendL3Pos = 16;
     public static final double kTiltL4Pos = 139;
-    public static final double kExtendL4Pos = 105.5;
+    public static final double kExtendL4Pos = 110.5;
 
     // Pickup positions
     public static final double kTiltSourcePickupPos = 92.5;
