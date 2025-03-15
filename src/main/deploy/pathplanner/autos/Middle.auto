@@ -5,9 +5,28 @@
     "data": {
       "commands": [
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "Middle"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Middle"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Trough Position"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Effector Out"
           }
         }
       ]
