@@ -30,9 +30,9 @@ public class SetArmToAngle extends Command {
         double armTiltPos = arm.getTiltEncoder();
 
         if (armTiltPos < armTiltTarget && !(armTiltPos > armTiltTarget-4)) {
-            arm.setTiltSpeed(2);
+            arm.setTiltSpeed(2.5);
         } else if (arm.getTiltEncoder() > armTiltTarget && !(armTiltPos < armTiltTarget+4)) {
-            arm.setTiltSpeed(-2);
+            arm.setTiltSpeed(-2.5);
         } else {
             arm.setTiltSpeed(0);
         }
@@ -44,9 +44,9 @@ public class SetArmToAngle extends Command {
         // Speed is negative when going outwards
         // Encoder = 0 when in all the way
         if (armExtendPos > armExtendTarget && !(armExtendPos < armExtendTarget+3)) {
-            arm.setExtendSpeed(2); 
+            arm.setExtendSpeed(3.5); 
         } else if (armExtendPos < armExtendTarget && !(armExtendPos > armExtendTarget+3)) {
-            arm.setExtendSpeed(-2);
+            arm.setExtendSpeed(-3.5);
         } else {
             arm.setExtendSpeed(0);
         }
