@@ -31,10 +31,10 @@ public class ButtonBoard {
 
         // Button 9 is for Processor - which we cannot do
         // For empty or wrist up
-        buttonBoard.button(9).whileTrue(new RunWristTilt(wrist, 1));
+        buttonBoard.button(9).whileTrue(new RunWristTilt(wrist, 2));
 
         // For nothing pos or wrist Down
-        buttonBoard.button(10).whileTrue(Commands.either(new SetArmToAngle(arm, wrist, 10), new RunWristTilt(wrist, -1), this::getFunction));
+        buttonBoard.button(10).whileTrue(Commands.either(new SetArmToAngle(arm, wrist, 10), new RunWristTilt(wrist, -2), this::getFunction));
 
         // For L4 pos or arm out
         buttonBoard.button(11).whileTrue(Commands.either(new SetArmToAngle(arm, wrist, 3), new RunArmExtend(arm, -1), this::getFunction));

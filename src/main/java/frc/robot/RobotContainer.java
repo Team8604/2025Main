@@ -196,7 +196,9 @@ public class RobotContainer
       driverXbox.rightBumper().onTrue(Commands.none());
     } else
     {
-      driverXbox.a().onTrue(Commands.runOnce(drivebase::resetOdometry));
+      driverXbox.a().onTrue(Commands.runOnce(drivebase::zeroGyro));
+
+      //driverXbox.a().onTrue(Commands.runOnce(drivebase::resetOdometry));
       driverXbox.x().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
       driverXbox.b().whileTrue(Commands.none());
       driverXbox.y().whileTrue(Commands.none());
