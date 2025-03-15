@@ -55,10 +55,10 @@ public class SetArmToAngle extends Command {
     private void wristTilt (double wristTiltTarget){
         double wristTiltPos = wrist.getTiltEncoder();
 
-        if (wristTiltPos < wristTiltTarget && !(wristTiltPos > wristTiltTarget-.005)) {
-            wrist.setTiltSpeed(1.5);
-        } else if (wristTiltPos > wristTiltTarget && !(wristTiltPos < wristTiltTarget+.005)) {
-            wrist.setTiltSpeed(-1.5);
+        if (wristTiltPos < wristTiltTarget && !(wristTiltPos > wristTiltTarget-.05)) {
+            wrist.setTiltSpeed(4);
+        } else if (wristTiltPos > wristTiltTarget && !(wristTiltPos < wristTiltTarget+.05)) {
+            wrist.setTiltSpeed(-4);
         } else {
             wrist.setTiltSpeed(0);
         }
