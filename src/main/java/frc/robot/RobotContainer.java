@@ -146,8 +146,8 @@ public class RobotContainer
     NamedCommands.registerCommand("L2 Position", new SetArmToAngle(arm, wrist, 1));
     NamedCommands.registerCommand("L3 Position", new SetArmToAngle(arm, wrist, 2));
     NamedCommands.registerCommand("L4 Position", new SetArmToAngle(arm, wrist, 3));
-    NamedCommands.registerCommand("Effector out", new RunEffector(effector, false, false ));
-    NamedCommands.registerCommand("Effector in", new RunEffector(effector, true, false));
+    NamedCommands.registerCommand("Effector Out", new RunEffector(effector, false, false));
+    NamedCommands.registerCommand("Effector In", new RunEffector(effector, true, false));
     // Configure the trigger bindings
     configureBindings();
     DriverStation.silenceJoystickConnectionWarning(true);
