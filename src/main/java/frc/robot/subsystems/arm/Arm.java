@@ -26,7 +26,7 @@ public class Arm extends SubsystemBase {
         kStart(7),
         kLowAlgae(8),
         kHighAlgae(9),
-        kWristDown(10);
+        kNothing(10);
 
         @SuppressWarnings("MemberName")
         public final int value;

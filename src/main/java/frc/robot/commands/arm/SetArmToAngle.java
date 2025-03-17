@@ -153,9 +153,8 @@ public class SetArmToAngle extends Command {
                 // Higher Algae Pickup
                 break;
 
-            case kWristDown:
+            case kNothing:
 
-                
                 break;
         } 
     }
