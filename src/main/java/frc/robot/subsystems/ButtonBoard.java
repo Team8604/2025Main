@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandGenericHID;
 import frc.robot.commands.arm.*;
 import frc.robot.subsystems.arm.*;
+import frc.robot.subsystems.arm.Arm.Position;
 
 public class ButtonBoard {
     CommandGenericHID buttonBoard;
@@ -24,29 +25,25 @@ public class ButtonBoard {
         buttonBoard.button(4).whileTrue(Commands.either(new RunEffector(effector, true, true), new RunEffector(effector, true, false), this::getFunction));
         // Button 5 & 6 are for climber
         // For starting pos or run wrist left
-        buttonBoard.button(7).whileTrue(Commands.either(new SetArmToAngle(arm, wrist, 7), new RunWristRotate(wrist, 1), this::getFunction));
+        buttonBoard.button(7).whileTrue(Commands.either(new SetArmToAngle(arm, wrist, Position.kStart), new RunWristRotate(wrist, 1), this::getFunction));
 
         // For source pos or run wrist Right
-        buttonBoard.button(8).whileTrue(Commands.either(new SetArmToAngle(arm, wrist, 6), new RunWristRotate(wrist, -1), this::getFunction));
-
-        // Button 9 is for Processor - which we cannot do
-        // For empty or wrist up
-        buttonBoard.button(9).whileTrue(new RunWristTilt(wrist, 2));
+        buttonBoard.button(8).whileTrue(Commands.either(new SetArmToAngle(arm, wrist, Position.kSource), new RunWristRotate(wrist, -1), this::getFunction));
 
         // For nothing pos or wrist Down
-        buttonBoard.button(10).whileTrue(Commands.either(new SetArmToAngle(arm, wrist, 10), new RunWristTilt(wrist, -2), this::getFunction));
+        buttonBoard.button(10).whileTrue(Commands.either(new SetArmToAngle(arm, wrist, Position.kWristDown), new RunWristTilt(wrist, -1), this::getFunction));
 
         // For L4 pos or arm out
-        buttonBoard.button(11).whileTrue(Commands.either(new SetArmToAngle(arm, wrist, 3), new RunArmExtend(arm, -1), this::getFunction));
+        buttonBoard.button(11).whileTrue(Commands.either(new SetArmToAngle(arm, wrist, Position.kL4), new RunArmExtend(arm, -1), this::getFunction));
 
         // For L3 pos or arm in
-        buttonBoard.button(12).whileTrue(Commands.either(new SetArmToAngle(arm, wrist, 2), new RunArmExtend(arm, 1), this::getFunction));
+        buttonBoard.button(12).whileTrue(Commands.either(new SetArmToAngle(arm, wrist, Position.kL3), new RunArmExtend(arm, 1), this::getFunction));
 
         // For L2 pos or arm up
-        buttonBoard.pov(270).whileTrue(Commands.either(new SetArmToAngle(arm, wrist, 1), new RunArmTilt(arm, 1), this::getFunction));
+        buttonBoard.pov(270).whileTrue(Commands.either(new SetArmToAngle(arm, wrist, Position.kL2), new RunArmTilt(arm, 1), this::getFunction));
 
         // For Trough pos or arm down
-        buttonBoard.pov(90).whileTrue(Commands.either(new SetArmToAngle(arm, wrist, 0), new RunArmTilt(arm, -1), this::getFunction));
+        buttonBoard.pov(90).whileTrue(Commands.either(new SetArmToAngle(arm, wrist, Position.kTrough), new RunArmTilt(arm, -1), this::getFunction));
 
         // For Arm out manually
         buttonBoard.pov(180).whileTrue(new RunArmExtend(arm, -1));
