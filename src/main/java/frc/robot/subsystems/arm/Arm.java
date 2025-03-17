@@ -9,9 +9,24 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ArmConstants;
 
 public class Arm extends SubsystemBase {
+    
+    /** Sets arm to angle with pids
+     * positions - 0-trough, 1-L2, 2-L3, 3-L4
+     * 4-Ground, 5-Processor, 6-Source, 7-Start
+     * 8-lower Algae, 9-Higher Algae
+     */
     public enum Position {
-        kBrushed(0),
-        kBrushless(1);
+        kTrough(0),
+        kL2(1),
+        kL3(2),
+        kL4(3),
+        kGround(4),
+        kProcessor(5),
+        kSource(6),
+        kStart(7),
+        kLowAlgae(8),
+        kHighAlgae(9),
+        kWristDown(10);
 
         @SuppressWarnings("MemberName")
         public final int value;
@@ -47,7 +62,7 @@ public class Arm extends SubsystemBase {
     }
 
     /** Returns arm extension potentiometer */
-    public static double getExtendEncoder() {
+    public double getExtendEncoder() {
         return extendMotor.getEncoder().getPosition() * -1;
     }
 

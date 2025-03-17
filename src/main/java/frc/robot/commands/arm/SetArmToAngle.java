@@ -4,10 +4,11 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.ArmConstants;
 import frc.robot.Constants.WristConstants;
 import frc.robot.subsystems.arm.Arm;
+import frc.robot.subsystems.arm.Arm.Position;
 import frc.robot.subsystems.arm.Wrist;
 
 public class SetArmToAngle extends Command {
-    private int position;
+    private Position position;
 
     // Arm base 
     Wrist wrist;
@@ -18,7 +19,7 @@ public class SetArmToAngle extends Command {
      * 4-Ground, 5-Processor, 6-Source, 7-Barge
      * 8-lower Alague, 9-Higher Alague
      */
-    public SetArmToAngle(Arm m_arm, Wrist m_wrist, int position) { 
+    public SetArmToAngle(Arm m_arm, Wrist m_wrist, Position position) { 
         addRequirements(m_arm, m_wrist);
         this.position = position;
 
@@ -39,7 +40,7 @@ public class SetArmToAngle extends Command {
     }
 
     private void armExtend (double armExtendTarget){
-        double armExtendPos = Arm.getExtendEncoder();
+        double armExtendPos = arm.getExtendEncoder();
 
         // Speed is negative when going outwards
         // Encoder = 0 when in all the way
@@ -79,7 +80,7 @@ public class SetArmToAngle extends Command {
     @Override
     public void execute() {
         switch (position) {
-            case 0:
+            case kTrough:
                 // Score in trough
                 armTilt(ArmConstants.kTiltTrofPos);
                 if (arm.getTiltEncoder() > 70) {
@@ -89,7 +90,7 @@ public class SetArmToAngle extends Command {
                 }
                 break; 
                 
-            case 1:
+            case kL2:
                 // Score in level 2
                 armTilt(ArmConstants.kTiltL2Pos);
                 if (arm.getTiltEncoder() > 70) {
@@ -98,7 +99,7 @@ public class SetArmToAngle extends Command {
                     wristTwist(WristConstants.kRotateL2Pos);
                 }
                 break; 
-            case 2:
+            case kL3:
                 // Score in level 3
                 armTilt(ArmConstants.kTiltL3Pos);
                 if (arm.getTiltEncoder() > 70) {
@@ -108,7 +109,7 @@ public class SetArmToAngle extends Command {
                 }
                 break;
             
-            case 3:
+            case kL4:
                 // Score in Level 4
                 armTilt(ArmConstants.kTiltL4Pos);
                 if (arm.getTiltEncoder() > 70) {
@@ -117,15 +118,15 @@ public class SetArmToAngle extends Command {
                     wristTwist(WristConstants.kRotateL4Pos);
                 }
                 break;
-            case 4:
+            case kGround:
                 // Ground Pickup
 
                 break;
-            case 5:
+            case kProcessor:
                 // Processor drop off
 
                 break;        
-            case 6:
+            case kSource:
                 // Source Pickup
                 armExtend(ArmConstants.kExtendSourcePickupPos);
                 wristTwist(WristConstants.kRotatePickupPos);
@@ -134,7 +135,7 @@ public class SetArmToAngle extends Command {
                     armTilt(ArmConstants.kTiltSourcePickupPos);
                 }
                 break;
-            case 7:
+            case kStart:
                 // Starting Pos
                 armExtend(ArmConstants.kExtendStartingPos);
                 wristTwist(WristConstants.kRotateStartingPos);
@@ -144,12 +145,17 @@ public class SetArmToAngle extends Command {
                 }
 
                 break;
-            case 8:
-                // Lower Alague Pickup
+            case kLowAlgae:
+                // Lower Algae Pickup
 
                 break;
-            case 9:
-                // Higher Alague Pickup
+            case kHighAlgae:
+                // Higher Algae Pickup
+                break;
+
+            case kWristDown:
+
+                
                 break;
         } 
     }

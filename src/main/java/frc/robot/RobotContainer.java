@@ -28,6 +28,7 @@ import java.io.File;
 import swervelib.SwerveInputStream;
 import frc.robot.subsystems.ButtonBoard;
 import frc.robot.subsystems.arm.*;
+import frc.robot.subsystems.arm.Arm.Position;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a "declarative" paradigm, very
@@ -142,12 +143,12 @@ public class RobotContainer
    */
   public RobotContainer()
   {
-    NamedCommands.registerCommand("Trough Position", new SetArmToAngle(arm, wrist, 0));
-    NamedCommands.registerCommand("L2 Position", new SetArmToAngle(arm, wrist, 1));
-    NamedCommands.registerCommand("L3 Position", new SetArmToAngle(arm, wrist, 2));
-    NamedCommands.registerCommand("L4 Position", new SetArmToAngle(arm, wrist, 3));
-    NamedCommands.registerCommand("Effector Out", new RunEffector(effector, false, false));
-    NamedCommands.registerCommand("Effector In", new RunEffector(effector, true, false));
+    NamedCommands.registerCommand("Trough Position", new SetArmToAngle(arm, wrist, Position.kTrough));
+    NamedCommands.registerCommand("L2 Position", new SetArmToAngle(arm, wrist, Position.kL2));
+    NamedCommands.registerCommand("L3 Position", new SetArmToAngle(arm, wrist, Position.kL3));
+    NamedCommands.registerCommand("L4 Position", new SetArmToAngle(arm, wrist, Position.kL4));
+    NamedCommands.registerCommand("Effector out", new RunEffector(effector, false, false ));
+    NamedCommands.registerCommand("Effector in", new RunEffector(effector, true, false));
     // Configure the trigger bindings
     configureBindings();
     DriverStation.silenceJoystickConnectionWarning(true);
