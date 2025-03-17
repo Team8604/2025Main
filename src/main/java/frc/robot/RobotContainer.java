@@ -38,16 +38,13 @@ import frc.robot.subsystems.arm.Arm.Position;
 public class RobotContainer
 {
   // Robot subsystems
-  private       Effector              effector = new Effector();
-  private       Wrist                 wrist = new Wrist();
-  private       Arm                   arm = new Arm();
+  private Effector                    effector = new Effector();
+  private Wrist                       wrist = new Wrist();
+  private Arm                         arm = new Arm();
 
-  // Replace with CommandPS4Controller or CommandJoystick if needed
-  final         CommandXboxController driverXbox = new CommandXboxController(0);
-  // Subsystem that declares bindings is also done through this
-  final         ButtonBoard           buttonBoard = new ButtonBoard(new CommandGenericHID(1), arm, wrist, effector);
-  public final static        CommandXboxController operatorXbox = new CommandXboxController(2);
-  // The robot's subsystems and commands are defined here...
+  private final CommandXboxController driverXbox = new CommandXboxController(0);
+  private final ButtonBoard           buttonBoard = new ButtonBoard(new CommandGenericHID(1), arm, wrist, effector);
+  private final CommandXboxController operatorXbox = new CommandXboxController(2);
   private final SwerveSubsystem       drivebase = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),
                                                                                 "swerve"));
 
