@@ -30,11 +30,11 @@ public class ButtonBoard {
         // For source pos or run wrist Right
         buttonBoard.button(8).whileTrue(Commands.either(new SetArmToAngle(arm, wrist, Position.kSource), new RunWristRotate(wrist, -1), this::getFunction));
 
-        // Nothing or wrist up
-        buttonBoard.button(9).whileTrue(Commands.either(new SetArmToAngle(arm, wrist, Position.kNothing), new RunWristTilt(wrist, 2), this::getFunction));
+        // Manual wrist up
+        buttonBoard.button(9).whileTrue(Commands.either(new RunWristTilt(wrist, 2), new RunWristTilt(wrist, 2), this::getFunction));
 
-        // For nothing or wrist Down
-        buttonBoard.button(10).whileTrue(Commands.either(new SetArmToAngle(arm, wrist, Position.kNothing), new RunWristTilt(wrist, -2), this::getFunction));
+        // Manual wrist Down
+        buttonBoard.button(10).whileTrue(Commands.either(new RunWristTilt(wrist, -2), new RunWristTilt(wrist, -2), this::getFunction));
 
         // For L4 pos or arm out
         buttonBoard.button(11).whileTrue(Commands.either(new SetArmToAngle(arm, wrist, Position.kL4), new RunArmExtend(arm, -1), this::getFunction));
