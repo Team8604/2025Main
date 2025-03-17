@@ -25,6 +25,7 @@ import swervelib.SwerveInputStream;
 import frc.robot.commands.arm.*;
 import frc.robot.subsystems.ButtonBoard;
 import frc.robot.subsystems.arm.*;
+import frc.robot.subsystems.Climber;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a "declarative" paradigm, very
@@ -37,6 +38,7 @@ public class RobotContainer
   private       Effector              effector = new Effector();
   private       Wrist                 wrist = new Wrist();
   private       Arm                   arm = new Arm();
+  private       Climber               climber = new Climber();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   final         CommandXboxController driverXbox = new CommandXboxController(0);

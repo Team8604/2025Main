@@ -167,4 +167,11 @@ public final class Constants
     public static final double kMaxDistFromPivotToRear = 27.25 + 18; // distance from pivot to extension limit of the other side
   }
 
+  public static class ClimberConstants { // SOMEONE IPLEMENT THIS LMAO PLS
+    public static final int kExtend = 56;
+    public static final double kMaxExtend = 0;
+    public static final double kMinExtend = 0;
+    public static final double kMaxExtendSpeed = 0;
+  }
+
 }
