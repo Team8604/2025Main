@@ -14,6 +14,8 @@ import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandGenericHID;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -140,12 +142,13 @@ public class RobotContainer
    */
   public RobotContainer()
   {
+    NamedCommands.registerCommand("Source Position", new SetArmToAngle(arm, wrist, Position.kSource));
     NamedCommands.registerCommand("Trough Position", new SetArmToAngle(arm, wrist, Position.kTrough));
     NamedCommands.registerCommand("L2 Position", new SetArmToAngle(arm, wrist, Position.kL2));
     NamedCommands.registerCommand("L3 Position", new SetArmToAngle(arm, wrist, Position.kL3));
     NamedCommands.registerCommand("L4 Position", new SetArmToAngle(arm, wrist, Position.kL4));
-    NamedCommands.registerCommand("Effector out", new RunEffector(effector, false, false ));
-    NamedCommands.registerCommand("Effector in", new RunEffector(effector, true, false));
+    NamedCommands.registerCommand("Effector Out", new ParallelDeadlineGroup(new WaitCommand(0.25), new RunEffector(effector, false, false)));
+    NamedCommands.registerCommand("Effector In", new ParallelDeadlineGroup(new WaitCommand(2.5), new RunEffector(effector, true, false)));
     // Configure the trigger bindings
     configureBindings();
     DriverStation.silenceJoystickConnectionWarning(true);

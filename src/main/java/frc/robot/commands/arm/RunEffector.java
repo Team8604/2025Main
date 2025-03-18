@@ -43,9 +43,11 @@ public class RunEffector extends Command {
   @Override
   public void execute(){
     over += (effector.getOutputCurrent() > 15) ? 1 : 0;
-    if (over > 10) {
-      effector.setSpeed(0);
-    } 
+  }
+
+  @Override
+  public boolean isFinished() {
+    return (over > 10);
   }
 
   /** Called once the command ends or is interrupted.*/

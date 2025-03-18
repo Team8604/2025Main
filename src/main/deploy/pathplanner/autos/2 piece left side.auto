@@ -11,7 +11,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "left to BL reef "
+                  "pathName": "Left to BL"
                 }
               },
               {
@@ -35,18 +35,6 @@
                       "data": {
                         "name": "Effector Out"
                       }
-                    },
-                    {
-                      "type": "wait",
-                      "data": {
-                        "waitTime": 0.25
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "Effector Out Off"
-                      }
                     }
                   ]
                 }
@@ -61,13 +49,13 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Reef BL to source"
+                  "pathName": "BL to Source"
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "Source"
+                  "name": "Source Position"
                 }
               },
               {
@@ -83,19 +71,7 @@
                     {
                       "type": "named",
                       "data": {
-                        "name": "Effector in"
-                      }
-                    },
-                    {
-                      "type": "wait",
-                      "data": {
-                        "waitTime": 2.5
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "Effector in Off"
+                        "name": "Effector In"
                       }
                     }
                   ]
@@ -111,7 +87,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "source to FL reef"
+                  "pathName": "Source to FL"
                 }
               },
               {
@@ -135,18 +111,6 @@
                       "data": {
                         "name": "Effector Out"
                       }
-                    },
-                    {
-                      "type": "wait",
-                      "data": {
-                        "waitTime": 0.25
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "Effector Out Off"
-                      }
                     }
                   ]
                 }
@@ -158,6 +122,6 @@
     }
   },
   "resetOdom": true,
-  "folder": null,
+  "folder": "2 Piece",
   "choreoAuto": false
 }
