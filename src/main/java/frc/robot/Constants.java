@@ -80,13 +80,13 @@ public final class Constants
     public static final double kRotateStartingPos = 0.5;
 
     // Coral scoring positions 
-    public static final double kWristTiltTrofPos = 0.34;
+    public static final double kTiltTrofPos = 0.34;
     public static final double kRotateTrofPos = 0.5;
-    public static final double kWristTiltL2Pos = .51;
+    public static final double kTiltL2Pos = 0.51;
     public static final double kRotateL2Pos = 0.75;
-    public static final double kWristTiltL3Pos = 0.6;
+    public static final double kTiltL3Pos = 0.6;
     public static final double kRotateL3Pos = 0.75;
-    public static final double kWristTiltL4Pos = 0.6;
+    public static final double kTiltL4Pos = 0.6;
     public static final double kRotateL4Pos = 0.75;
 
     // Pickup positions
@@ -95,13 +95,11 @@ public final class Constants
 
 
     // Wrist Pid Values
-    public static final double kTwistP = 0.1;
-    public static final double kTwistI = 0;
+    public static final double kTwistP = 0.01;
     public static final double kTwistD = 0;
 
-    public static final double kWristTiltP = 0.1;
-    public static final double kWristTiltI = 0;
-    public static final double kWristTiltD = 0;
+    public static final double kTiltP = 0.01;
+    public static final double kTiltD = 0;
   }
 
   public static class ArmConstants {
@@ -115,13 +113,11 @@ public final class Constants
     public static final int kPotentiometerPort = 0;
 
     // Arm Pid Values
-    public static final double kExtendP = 1;
-    public static final double kExtendI = 0;
+    public static final double kExtendP = 0.01;
     public static final double kExtendD = 0;
 
-    public static final double kTiltP = 1;
-    public static final double kTiltI = 0;
-    public static final double kTiltD = 5;
+    public static final double kTiltP = 0.01;
+    public static final double kTiltD = 0;
 
     // Arm Restrainghts 
     public static final double kMaxTiltSpeed = 0.1;
