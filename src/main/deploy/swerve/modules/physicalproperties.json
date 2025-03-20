@@ -7,8 +7,8 @@
     "angle": 20
   },
   "supplyCurrentLower":{
-    "drive": 10,
-    "angle" : 10
+    "drive": 12,
+    "angle" : 12
   },
   "conversionFactors": {
     "angle": {

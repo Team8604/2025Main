@@ -32,11 +32,16 @@ public class SetArmToAngle extends Command {
 
     private void armTilt(double armTiltTarget) {
         double armTiltPos = arm.getTiltEncoder();
+        double speed = 2.5;
+
+        if (arm.getExtendEncoder() > 25){
+            speed *= 0.5;
+        }
 
         if (armTiltPos < armTiltTarget && !(armTiltPos > armTiltTarget - 4)) {
-            arm.setTiltSpeed(2.5);
+            arm.setTiltSpeed(speed);
         } else if (armTiltPos > armTiltTarget && !(armTiltPos < armTiltTarget + 4)) {
-            arm.setTiltSpeed(-2.5);
+            arm.setTiltSpeed(-speed);
         } else {
             arm.setTiltSpeed(0);
         }
@@ -172,10 +177,16 @@ public class SetArmToAngle extends Command {
                 break;
             case kHighAlgae:
                 // Higher Algae Pickup
-                armTilt(ArmConstants.kTiltL2Pos);
+                double wristTiltTopAlague = WristConstants.kTiltTopAlaguePos;
+
+
+                if (wrist.getTiltEncoder() < wristTiltTopAlague){
+                    wristTiltTopAlague += 7;
+                }
+                armTilt(ArmConstants.kTiltTopAlaguePickupPos);
                 if (arm.getTiltEncoder() > 70) {
                     armExtend(ArmConstants.kExtendTopAlaguePickupPos);
-                    wristTilt(WristConstants.kTiltTopAlaguePos);
+                    wristTilt(wristTiltTopAlague);
                     wristTwist(WristConstants.kRotateTopAlaguePos);
                 }
                 break;

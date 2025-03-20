@@ -86,7 +86,7 @@ public final class Constants
     public static final double kRotateL2Pos = 0.75;
     public static final double kWristTiltL3Pos = 0.6;
     public static final double kRotateL3Pos = 0.75;
-    public static final double kWristTiltL4Pos = 0.6;
+    public static final double kWristTiltL4Pos = 0.59;
     public static final double kRotateL4Pos = 0.75;
 
     // Alague positions
