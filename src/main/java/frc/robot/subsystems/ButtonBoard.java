@@ -31,10 +31,10 @@ public class ButtonBoard {
         buttonBoard.button(8).whileTrue(Commands.either(new SetArmToAngle(arm, wrist, Position.kSource), new RunWristRotate(wrist, -1), this::getFunction));
 
         // Manual wrist up
-        buttonBoard.button(9).whileTrue(Commands.either(new RunWristTilt(wrist, 2), new RunWristTilt(wrist, 2), this::getFunction));
+        buttonBoard.button(9).whileTrue(Commands.either(new RunWristTilt(wrist, 10), new RunWristTilt(wrist, 10), this::getFunction));
 
-        // Manual wrist Down
-        buttonBoard.button(10).whileTrue(Commands.either(new RunWristTilt(wrist, -2), new RunWristTilt(wrist, -2), this::getFunction));
+        // Ground Pos or Manual wrist Down
+        buttonBoard.button(10).whileTrue(Commands.either(new SetArmToAngle(arm, wrist, Position.kGround), new RunWristTilt(wrist, -10), this::getFunction));
 
         // For L4 pos or arm out
         buttonBoard.button(11).whileTrue(Commands.either(new SetArmToAngle(arm, wrist, Position.kL4), new RunArmExtend(arm, -1), this::getFunction));
@@ -48,11 +48,11 @@ public class ButtonBoard {
         // For Trough pos or arm down
         buttonBoard.pov(90).whileTrue(Commands.either(new SetArmToAngle(arm, wrist, Position.kTrough), new RunArmTilt(arm, -1), this::getFunction));
 
-        // For Arm out manually
-        buttonBoard.pov(180).whileTrue(new RunArmExtend(arm, -1));
+        // For Top alague pos
+        buttonBoard.pov(180).whileTrue(new SetArmToAngle(arm, wrist, Position.kHighAlgae));
 
-        // Fpr Arm in manually
-        buttonBoard.pov(0).whileTrue(new RunArmExtend(arm, 1));
+        // Fpr wrist up manually
+        buttonBoard.pov(0).whileTrue(new RunWristTilt(wrist, -1));
 
         //buttonBoard.button(0).whileTrue(Commands.either(null, null, this::getFunction));
     }
