@@ -72,7 +72,7 @@ public final class Constants
     public static final double kMaxPositiveTwist = 0.745;
     public static final double kMaxNegativeTwist = 0.5;
 
-    public static final double kMaxPositiveTilt = 0.81;
+    public static final double kMaxPositiveTilt = 0.8;
     public static final double kMaxNegativeTilt = 0.24;
 
     // Wrist positions
@@ -89,10 +89,16 @@ public final class Constants
     public static final double kWristTiltL4Pos = 0.6;
     public static final double kRotateL4Pos = 0.75;
 
+    // Alague positions
+    public static final double kTiltTopAlaguePos = 0.4;
+    public static final double kRotateTopAlaguePos = 0.5;
+
     // Pickup positions
-    public static final double kTiltPickupPos = 0.45;
+    public static final double kTiltPickupPos = 0.43;
     public static final double kRotatePickupPos = 0.5;
 
+    public static final double kTiltGroundPickupPos = 0.46;
+    public static final double kRotateGroundPickupPos = 0.75;
 
     // Wrist Pid Values
     public static final double kTwistP = 0.1;
@@ -144,18 +150,25 @@ public final class Constants
     public static final double kExtendStartingPos = 0.74;
 
     // Coral scoring positions 
-    public static final double kTiltTrofPos = 87.1;
-    public static final double kExtendTrofPos = 2;
+    public static final double kTiltTrofPos = 77.2;
+    public static final double kExtendTrofPos = 3.18;
     public static final double kTiltL2Pos = 84.6;
     public static final double kExtendL2Pos = 2;
     public static final double kTiltL3Pos = 131.1;
-    public static final double kExtendL3Pos = 16;
+    public static final double kExtendL3Pos = 12;
     public static final double kTiltL4Pos = 139;
     public static final double kExtendL4Pos = 110.5;
+
+    // Alague positions
+    public static final double kTiltTopAlaguePickupPos = 90;
+    public static final double kExtendTopAlaguePickupPos = 39.9;
 
     // Pickup positions
     public static final double kTiltSourcePickupPos = 92.5;
     public static final double kExtendSourcePickupPos = -1;
+
+    public static final double kTiltGroundPickupPos = 45;
+    public static final double kExtendGroundPickupPos = 0;
     
     // Constants for calculating max extensions
     public static final double kTiltUpwards = 105; // arm max distance equation number

@@ -55,6 +55,6 @@ public class Wrist extends SubsystemBase {
         
         SmartDashboard.putNumber("Wrist Extend speed", twistMotor.get());
         SmartDashboard.putNumber("Wrist Tilt speed", tiltMotor.get());
-
+        SmartDashboard.putNumber("Wrist Tilt output current", tiltMotor.getOutputCurrent());
     }
 }
