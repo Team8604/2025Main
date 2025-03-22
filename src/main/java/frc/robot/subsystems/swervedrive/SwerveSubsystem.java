@@ -71,7 +71,7 @@ public class SwerveSubsystem extends SubsystemBase
   /**
    * Enable vision odometry updates while driving.
    */
-  private final boolean             visionDriveTest     = true;
+  private final boolean             visionDriveTest     = false;
   /**
    * Array of AprilTag values on the reef. Starts with Blue alliance, moving counterclockwise from the left. Used for {@link SwerveSubsystem#driveToReef}
    */

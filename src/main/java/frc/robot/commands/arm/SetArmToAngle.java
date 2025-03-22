@@ -90,7 +90,14 @@ public class SetArmToAngle extends Command {
         switch (position) {
             case kTrough:
                 // Score in trough
-                armTilt(ArmConstants.kTiltTrofPos);
+
+                double armTiltTargetPos = ArmConstants.kTiltTrofPos;
+
+                if (arm.getTiltEncoder() < armTiltTargetPos){
+                    armTiltTargetPos += 5;//2;
+                } 
+
+                armTilt(armTiltTargetPos);
                 if (arm.getTiltEncoder() > 70) {
                     armExtend(ArmConstants.kExtendTrofPos);
                     wristTilt(WristConstants.kWristTiltTrofPos);
@@ -100,10 +107,18 @@ public class SetArmToAngle extends Command {
 
             case kL2:
                 // Score in level 2
+
+                double wristTiltTargetPos = WristConstants.kWristTiltL2Pos;
+
+
+                if (wrist.getTiltEncoder() < wristTiltTargetPos){
+                    wristTiltTargetPos += 5;
+                } 
+
                 armTilt(ArmConstants.kTiltL2Pos);
                 if (arm.getTiltEncoder() > 70) {
                     armExtend(ArmConstants.kExtendL2Pos);
-                    wristTilt(WristConstants.kWristTiltL2Pos);
+                    wristTilt(wristTiltTargetPos);
                     wristTwist(WristConstants.kRotateL2Pos);
                 }
                 break;

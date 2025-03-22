@@ -23,6 +23,7 @@ import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.arm.RunArm;
 import frc.robot.commands.arm.RunEffector;
 import frc.robot.commands.arm.RunWrist;
+import frc.robot.commands.arm.RunWristTilt;
 import frc.robot.commands.arm.SetArmToAngle;
 import frc.robot.commands.swervedrive.drivebase.AbsoluteDriveAdv;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
@@ -205,8 +206,8 @@ public class RobotContainer
       driverXbox.y().whileTrue(Commands.none());
       driverXbox.start().whileTrue(Commands.none());
       driverXbox.back().whileTrue(Commands.none());
-      driverXbox.leftBumper().whileTrue(Commands.none());
-      driverXbox.rightBumper().whileTrue(Commands.none());
+      driverXbox.leftBumper().whileTrue(new RunWristTilt(wrist, -10));
+      driverXbox.rightBumper().whileTrue(new RunWristTilt(wrist, 10));
       
       driverXbox.axisGreaterThan(3, 0.5).whileTrue(new RunEffector(effector, false, false));
       driverXbox.axisGreaterThan(2, 0.5).whileTrue(new RunEffector(effector, true, false));
@@ -221,8 +222,8 @@ public class RobotContainer
   public Command getAutonomousCommand()
   {
     // An example command will be run in autonomous
-    return drivebase.getAutonomousCommand("Middle");
-    //return Commands.none();
+    //return drivebase.getAutonomousCommand("Middle");
+    return Commands.none();
   }
 
   public void setDriveMode()

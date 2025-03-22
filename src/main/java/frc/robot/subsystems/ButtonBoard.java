@@ -24,6 +24,11 @@ public class ButtonBoard {
         buttonBoard.button(3).whileTrue(Commands.either(new RunEffector(effector, false, true), new RunEffector(effector, false, false), this::getFunction));
         buttonBoard.button(4).whileTrue(Commands.either(new RunEffector(effector, true, true), new RunEffector(effector, true, false), this::getFunction));
         // Button 5 & 6 are for climber
+        // For manual wrist up
+        buttonBoard.button(5).whileTrue(new RunWristTilt(wrist, 10));
+        // For manual wrist down
+        buttonBoard.button(6).whileTrue(new RunWristTilt(wrist, -10));
+
         // For starting pos or run wrist left
         buttonBoard.button(7).whileTrue(Commands.either(new SetArmToAngle(arm, wrist, Position.kStart), new RunWristRotate(wrist, 1), this::getFunction));
 
@@ -52,7 +57,7 @@ public class ButtonBoard {
         buttonBoard.pov(180).whileTrue(new SetArmToAngle(arm, wrist, Position.kHighAlgae));
 
         // Fpr wrist up manually
-        buttonBoard.pov(0).whileTrue(new RunWristTilt(wrist, -1));
+        //buttonBoard.pov(0).whileTrue(new RunWristTilt(wrist, -1));
 
         //buttonBoard.button(0).whileTrue(Commands.either(null, null, this::getFunction));
     }
