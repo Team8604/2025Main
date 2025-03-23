@@ -53,9 +53,9 @@ public class SetArmToAngle extends Command {
         // Speed is negative when going outwards
         // Encoder = 0 when in all the way
         if (armExtendPos > armExtendTarget && !(armExtendPos < armExtendTarget + 3)) {
-            arm.setExtendSpeed(3.5);
+            arm.setExtendSpeed(4);
         } else if (armExtendPos < armExtendTarget && !(armExtendPos > armExtendTarget + 3)) {
-            arm.setExtendSpeed(-3.5);
+            arm.setExtendSpeed(-4);
         } else {
             arm.setExtendSpeed(0);
         }

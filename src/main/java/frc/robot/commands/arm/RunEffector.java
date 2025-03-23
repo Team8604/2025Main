@@ -42,13 +42,13 @@ public class RunEffector extends Command {
   
   @Override
   public void execute(){
-    over += (effector.getOutputCurrent() > 15) ? 1 : 0;
+    //over += (effector.getOutputCurrent() > 15) ? 1 : 0;
   }
 
-  @Override
+  /*@Override
   public boolean isFinished() {
     return (over > 10);
-  }
+  }*/
 
   /** Called once the command ends or is interrupted.*/
   @Override

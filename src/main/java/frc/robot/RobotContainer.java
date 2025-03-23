@@ -223,7 +223,10 @@ public class RobotContainer
   {
     // An example command will be run in autonomous
     //return drivebase.getAutonomousCommand("Middle");
-    return Commands.none();
+    //return drivebase.getAutonomousCommand("Left");
+    return drivebase.getAutonomousCommand("Right");
+
+    //return Commands.none();
   }
 
   public void setDriveMode()
