@@ -144,7 +144,7 @@ public class RobotContainer
   public RobotContainer()
   {
     NamedCommands.registerCommand("Source Position", new SetArmToAngle(arm, wrist, Position.kSource));
-    NamedCommands.registerCommand("Trough Position", new SetArmToAngle(arm, wrist, Position.kTrough));
+    NamedCommands.registerCommand("Trough Position", new SetArmToAngle(arm, wrist, Position.kAUTOTROUGH));
     NamedCommands.registerCommand("L2 Position", new SetArmToAngle(arm, wrist, Position.kL2));
     NamedCommands.registerCommand("L3 Position", new SetArmToAngle(arm, wrist, Position.kL3));
     NamedCommands.registerCommand("L4 Position", new SetArmToAngle(arm, wrist, Position.kL4));
@@ -222,9 +222,9 @@ public class RobotContainer
   public Command getAutonomousCommand()
   {
     // An example command will be run in autonomous
-    //return drivebase.getAutonomousCommand("Middle");
+    return drivebase.getAutonomousCommand("Middle");
     //return drivebase.getAutonomousCommand("Left");
-    return drivebase.getAutonomousCommand("Right");
+    //return drivebase.getAutonomousCommand("Right");
 
     //return Commands.none();
   }

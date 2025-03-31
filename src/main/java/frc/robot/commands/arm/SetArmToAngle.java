@@ -88,6 +88,24 @@ public class SetArmToAngle extends Command {
     @Override
     public void execute() {
         switch (position) {
+            case kAUTOTROUGH:
+                // Score in trough
+
+                double autoArmTiltTargetPos = ArmConstants.kAUTOTiltTrofPos;
+
+                if (arm.getTiltEncoder() < autoArmTiltTargetPos){
+                    autoArmTiltTargetPos += 5;//2;
+                } 
+
+                armTilt(autoArmTiltTargetPos);
+                if (arm.getTiltEncoder() > 70) {
+                    armExtend(ArmConstants.kAUTOExtendTrofPos);
+                    wristTilt(WristConstants.kWristTiltTrofPos);
+                    wristTwist(WristConstants.kRotateTrofPos);
+                }
+                break;
+
+
             case kTrough:
                 // Score in trough
 

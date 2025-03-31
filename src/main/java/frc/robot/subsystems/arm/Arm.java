@@ -16,6 +16,7 @@ public class Arm extends SubsystemBase {
      * 8-lower Algae, 9-Higher Algae
      */
     public enum Position {
+        kAUTOTROUGH(11),
         kTrough(0),
         kL2(1),
         kL3(2),

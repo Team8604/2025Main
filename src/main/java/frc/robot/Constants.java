@@ -22,7 +22,7 @@ public final class Constants
   public static final double ROBOT_MASS = (148 - 20.3) * 0.453592; // 32lbs * kg per pound
   public static final Matter CHASSIS    = new Matter(new Translation3d(0, 0, Units.inchesToMeters(8)), ROBOT_MASS);
   public static final double LOOP_TIME  = 0.13; //s, 20ms + 110ms sprk max velocity lag
-  public static final double MAX_SPEED  = Units.feetToMeters(14.5);
+  public static final double MAX_SPEED  = Units.feetToMeters(16.5);
   // Maximum speed of the robot in meters per second, used to limit acceleration.
 
 //  public static final class AutonConstants
@@ -150,6 +150,8 @@ public final class Constants
     public static final double kExtendStartingPos = 0.74;
 
     // Coral scoring positions 
+    public static final double kAUTOTiltTrofPos = 87.1;
+    public static final double kAUTOExtendTrofPos = 0;
     public static final double kTiltTrofPos = 77.2;
     public static final double kExtendTrofPos = 3.18;
     public static final double kTiltL2Pos = 84.6;
